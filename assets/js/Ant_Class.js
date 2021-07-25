@@ -42,6 +42,7 @@ class Ants {
 		let rangeASize = this.allAnts[this.allAnts.length - 1].size * this.allAnts[this.allAnts.length - 1].aSize
 		antRangeA.style.width = rangeASize + px
 		antRangeA.style.height = rangeASize + px
+
 		// Ant rangeA centering
 		antRangeA.style.left = "-" + ((rangeASize / 2) - (this.allAnts[this.allAnts.length - 1].size) / 2) + px
 		antRangeA.style.top = "-" + ((rangeASize / 2) - (this.allAnts[this.allAnts.length - 1].size / 2)) + px
@@ -82,7 +83,15 @@ class Ants {
 		this.refreshConsole()
 	}
 	get_Ant(name, pos = false, size = 20, hp = 100, direction = false, velocity = 1, delay = 10, aSize = 3) {
-		pos = ((!pos === false) ? pos : [playGroundSize.w / 2, playGroundSize.h / 2])
+
+		// random position
+		let aleaX = aleaEntreBornes(1, playGroundSize.w - size)
+		let aleaY = aleaEntreBornes(1, playGroundSize.h - size)
+		// random position
+		// let aleaX = parseInt(playGroundSize.w / 2)
+		// let aleaY = parseInt(playGroundSize.h / 2)
+		// centered position
+		pos = ((!pos === false) ? pos : [aleaX, aleaY])
 		return {
 			"num": this.immat,
 			"name": name,

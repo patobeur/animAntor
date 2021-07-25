@@ -2,6 +2,7 @@
 // Ant's PlayGround
 let PlayGround = Object
 let pause = false
+let startSpawn = 40 // automatique spawner
 // -----------------------------
 let interval = 1000 / 240 // render speed
 
@@ -48,7 +49,6 @@ function WindowisLoaded() {
 	PlayGround.Ants.playGroundSize = playGroundSize
 	PlayGround.set_respawn(respawn)
 	if (respawn) {
-		let startSpawn = 0
 		for (let i = 0; i < startSpawn; i++) {
 			PlayGround.Ants.addAnt("amy" + i)
 		}

@@ -150,10 +150,10 @@ class AntAnimator {
 		this.antsToDelete.push(idx)
 		nbDeadAnts++
 	}
+	addMobToRecentering(idx) {
+		this.antsToRecenter.push(idx)
+	}
 	deleteMobListe() {
-		console.log('moblisttodelete:')
-		console.log(this.antsToDelete)
-		// if (this.antsToDelete.length > 0) {
 		if (this.antsToDelete.length > 0) {
 			this.antsToDelete.sort()
 			this.antsToDelete.reverse()
@@ -166,11 +166,7 @@ class AntAnimator {
 			// 	nbRespawnAnts++
 			// }
 		})
-		// }
 		this.antsToDelete = []
-	}
-	addMobToRecentering(idx) {
-		this.antsToRecenter.push(idx)
 	}
 	resizeMobs(type, mob) {
 		mob.size = mob.size * 1.1
@@ -184,9 +180,6 @@ class AntAnimator {
 
 		currentMob.querySelector('.rangea').style.width = (mob.size * mob.aSize) + px
 		currentMob.querySelector('.rangea').style.height = (mob.size * mob.aSize) + px
-		// currentMob.querySelector('.rangea').style.top = (mob.size * mob.aSize) + px
-		// currentMob.querySelector('.rangea').style.left = (mob.size * mob.aSize) + px
-
 		currentMob.querySelector('.rangea').style.left = "-" + (((mob.size * mob.aSize) / 2) - (mob.size) / 2) + px
 		currentMob.querySelector('.rangea').style.top = "-" + (((mob.size * mob.aSize) / 2) - (mob.size / 2)) + px
 
@@ -262,10 +255,12 @@ class AntAnimator {
 				let alloverlaps = this.isOverlapping(currentMob, ant)
 				if (alloverlaps[0]) {
 					currentMob.overlap[0] = true
-					currentMob.state[2] = "immune"
-					this.resizeMobs('self', currentMob)
 					ant.overlap[0] = true
-					ant.state[3] = !(ant.state[2] === "immune") ? "dead" : ant.state[3]
+					if (ant.state[2] != "immune" && ant.size <= currentMob.size) {
+						currentMob.state[2] = "immune"
+						this.resizeMobs('self', currentMob)
+						ant.state[3] = "dead"
+					}
 					// currentMob.state[2] = 'dead'
 				}
 				if (alloverlaps[1]) {
