@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="fr-FR">
+
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Ant Animator</title>
+		<link rel="icon" type="image/png" href="assets/img/antblack.png">
+		<link rel='stylesheet' id='base-css' href='assets/css/css.css?ver=2' type='text/css' media='all' />
+	</head>
+
+	<body>
+		<div id="fullscreen">
+			<div id="playground">
+				<div id="mob"></div>
+			</div>
+
+			<div id="buttons">
+				<div id="isrespawning" class="console-item" title="Active Respawn or not !">
+					<div class="console-ico">⭮</div>
+					<div id="respawning">0</div>
+				</div>
+				<div id="isworldtype" class="console-item" title="Mirrored Or Closed Wolrd">
+					<div class="console-ico">⭮</div>
+					<div id="worldtype">Mirror</div>
+				</div>
+			</div>
+
+			<div id="console">
+				<div class="console-item" title="Spawned by you !">
+					<div class="console-ico">☉</div>
+					<div id="mobcount">0</div>
+				</div>
+				<div class="console-item" title="Ant out of view">
+					<div class="console-ico">☊</div>
+					<div id="mobdead">0</div>
+				</div>
+				<div class="console-item" title="ReSpawned !">
+					<div class="console-ico">☋</div>
+					<div id="respawned">0</div>
+				</div>
+			</div>
+
+			<div id="info">Press [N] or click playground for more ant, [S] to trigger respawn on/off !, [W] to trigger
+				World limite !
+				<!-- ↥⇡⮉⇪⇑⭮♥♡☖☗♎⏫ -->
+			</div>
+
+			<div id="test">
+			</div>
+
+		</div>
+		<script src='assets/js/main.js' id='main-js'></script>
+		<script src='assets/js/Ant_Class.js' id='ant-js'></script>
+		<script src='assets/js/AntAnimator_Class.js' id='antAnimator-js'></script>
+	</body>
+
+</html>

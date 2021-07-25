@@ -1,0 +1,164 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  color: white;
+  overflow: hidden;
+  font-family: "Montserrat";
+  font-weight: bold;
+  background: black;
+}
+
+body #fullscreen {
+  height: 100vh;
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  background: #804040;
+  overflow: hidden;
+}
+
+body #fullscreen #playground {
+  position: absolute;
+  background: #353535;
+  height: calc(100% - 2rem);
+  width: calc(100% - 2rem);
+  border-radius: 1rem;
+}
+
+body #fullscreen #playground #mob {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+}
+
+body #fullscreen #playground #mob .ant {
+  position: absolute;
+  border-radius: 5px;
+}
+
+body #fullscreen #playground #mob .ant .rangeself,
+body #fullscreen #playground #mob .ant .rangea {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.03);
+}
+
+body #fullscreen #playground #mob .ant.overself .rangeself {
+  border-radius: unset;
+  outline-color: red;
+}
+
+body #fullscreen #playground #mob .ant.overa .rangea {
+  border-radius: unset;
+  outline-color: #ff8800;
+}
+
+body #fullscreen #playground #mob .ant .visual {
+  background-size: cover;
+  border-radius: 25%;
+  border-top-left-radius: 50%;
+  border-top-right-radius: 50%;
+  text-align: center;
+}
+
+body #fullscreen #playground #mob .ant .mobinfo {
+  position: absolute;
+  top: -25px;
+  right: -25px;
+  color: rgba(255, 255, 255, 0);
+}
+
+body #fullscreen #playground #mob .ant:hover .mobinfo {
+  color: white;
+  border-radius: 0.5rem;
+  z-index: 1000;
+}
+
+body #fullscreen #info {
+  position: absolute;
+  bottom: 1rem;
+  left: 1rem;
+}
+
+body #fullscreen #buttons,
+body #fullscreen #console {
+  position: absolute;
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+body #fullscreen #buttons .console-item,
+body #fullscreen #console .console-item {
+  background: rgba(0, 0, 0, 0.1);
+  color: white;
+  font-weight: bold;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  border-radius: 0.4rem;
+  border: 2px solid rgba(255, 255, 255, 0.335);
+  margin-left: 1rem;
+  margin-top: 1rem;
+}
+
+body #fullscreen #buttons .console-item .console-ico,
+body #fullscreen #console .console-item .console-ico {
+  height: 100%;
+  border-right: 2px solid rgba(255, 255, 255, 0.335);
+  padding: 0.2rem 0.5rem;
+}
+
+body #fullscreen #buttons .console-item #mobcount,
+body #fullscreen #buttons .console-item #mobdead,
+body #fullscreen #buttons .console-item #respawned,
+body #fullscreen #buttons .console-item #respawning,
+body #fullscreen #buttons .console-item #worldtype,
+body #fullscreen #console .console-item #mobcount,
+body #fullscreen #console .console-item #mobdead,
+body #fullscreen #console .console-item #respawned,
+body #fullscreen #console .console-item #respawning,
+body #fullscreen #console .console-item #worldtype {
+  padding: 0.2rem 0.5rem;
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
+}
+
+body #fullscreen #buttons {
+  right: 0;
+}
+
+body #fullscreen #buttons .console-item {
+  margin-left: unset;
+  margin-right: 1rem;
+}
+
+body #fullscreen #buttons .console-item.active {
+  background-color: rgba(30, 255, 0, 0.685);
+}
+/*# sourceMappingURL=css.css.map */

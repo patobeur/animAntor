@@ -1,0 +1,131 @@
+* {
+	margin: 0;
+	padding: 0;
+}
+body {
+	color: white;
+	overflow: hidden;
+	font-family: "Montserrat";
+	font-weight: bold;
+	background: rgb(0, 0, 0);
+	#fullscreen {
+		height: 100vh;
+		width: 100%;
+		display: flex;
+		flex-direction: column;
+		background: rgb(128, 64, 64);
+		overflow: hidden;
+		#playground {
+			position: absolute;
+			background: rgb(53, 53, 53);
+			height: calc(100% - 2rem);
+			width: calc(100% - 2rem);
+			// overflow: hidden;
+			border-radius: 1rem;
+			#mob {
+				position: relative;
+				// background: rgba(42, 107, 4, 0.842);
+				height: 100%;
+				width: 100%;
+				overflow: hidden;
+				.ant {
+					position: absolute;
+					// background: rgba(255, 255, 255, 0.89);
+					border-radius: 5px;
+					.rangeself,
+					.rangea {
+						position: absolute;
+						border-radius: 50%;
+						background: rgba(255, 255, 255, 0.03);
+						// outline: 3px dotted rgba(255, 255, 255, 0.2);
+					}
+					&.overself {
+						.rangeself {
+							border-radius: unset;
+							outline-color: rgba(255, 0, 0, 1);
+							// background: rgba(255, 0, 0, 0.3);
+						}
+					}
+					&.overa {
+						.rangea {
+							border-radius: unset;
+							outline-color: rgb(255, 136, 0);
+							// background: rgba(255, 136, 0, 0.3);
+						}
+					}
+					.visual {
+						background-size: cover;
+						border-radius: 25%;
+						border-top-left-radius: 50%;
+						border-top-right-radius: 50%;
+						// outline: 1px solid rgba(255, 255, 255, 1);
+						text-align: center;
+					}
+					.mobinfo {
+						position: absolute;
+						top: -25px;
+						right: -25px;
+						color: rgba(255, 255, 255, 0);
+					}
+					&:hover .mobinfo {
+						color: rgba(255, 255, 255, 1);
+						// background: rgba(255, 0, 0, 0.3);
+						border-radius: 0.5rem;
+						z-index: 1000;
+					}
+				}
+			}
+		}
+		#info {
+			position: absolute;
+			bottom: 1rem;
+			left: 1rem;
+		}
+		#buttons,
+		#console {
+			position: absolute;
+			width: max-content;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			.console-item {
+				background: rgba(0, 0, 0, 0.1);
+				color: white;
+				font-weight: bold;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				border-radius: 0.4rem;
+				// outline: 2px solid rgba(255, 255, 255, 0.335);
+				border: 2px solid rgba(255, 255, 255, 0.335);
+				margin-left: 1rem;
+				margin-top: 1rem;
+				.console-ico {
+					height: 100%;
+					border-right: 2px solid rgba(255, 255, 255, 0.335);
+					padding: 0.2rem 0.5rem;
+				}
+				#mobcount,
+				#mobdead,
+				#respawned,
+				#respawning,
+				#worldtype {
+					padding: 0.2rem 0.5rem;
+					width: max-content;
+				}
+			}
+		}
+		#buttons {
+			right: 0;
+			.console-item {
+				// 	margin-left: unset;
+				// 	margin-right: 1rem;
+				margin-left: unset;
+				margin-right: 1rem;
+				&.active {
+					background-color: rgba(30, 255, 0, 0.685);
+				}
+			}
+		}
+	}
+}
