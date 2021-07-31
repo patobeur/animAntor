@@ -189,6 +189,8 @@ class AntAnimator {
 		this.Ants.allAnts.forEach(ant => {
 			let currentMob = document.getElementById('ant-' + ant.num);
 
+			let elem = currentMob.querySelector(".mobinfo");
+			elem.parentNode.removeChild(elem)
 
 			currentMob.style.top = ant.y + px;
 			currentMob.style.left = ant.x + px;
@@ -203,9 +205,25 @@ class AntAnimator {
 			let classDead = (ant.state[3] === "dead") ? " dead" : ""
 			currentMob.className = 'ant ' + ant.state[0] + classSelf + classRangeA + classDead;
 			// refresh info
-			currentMob.querySelector('.mobinfo').textContent = (ant.overlap[0] === true ? "1" : "0") + "," +
-				(ant.overlap[1] === true ? "1" : "0") +
-				" #" + ant.num
+			let mobinfo = document.createElement('div')
+			mobinfo.className = "mobinfo"
+
+			let idspan = document.createElement('span')
+			idspan.className = "idspan"
+			idspan.textContent = "#" + ant.num
+			mobinfo.appendChild(idspan)
+
+			let posspan = document.createElement('span')
+			posspan.className = "posspan"
+			posspan.textContent = (ant.overlap[0] === true ? "1" : "0") + "," + (ant.overlap[1] === true ? "1" : "0")
+			mobinfo.appendChild(posspan)
+
+			let xpspan = document.createElement('span')
+			xpspan.className = "xpspan"
+			xpspan.textContent = "xp:" + ant.kills
+			mobinfo.appendChild(xpspan)
+
+			currentMob.appendChild(mobinfo)
 		});
 	}
 	isOverlapping = (function () {
@@ -256,7 +274,14 @@ class AntAnimator {
 				if (alloverlaps[0]) {
 					currentMob.overlap[0] = true
 					ant.overlap[0] = true
-					if (ant.state[2] != "immune" && ant.size <= currentMob.size) {
+					if (ant.state[2] != "immune"
+						&& ant.size <= currentMob.size
+						&& ant.num != currentMob.lastenemyid
+						&& (ant.kills < currentMob.kills || ant.kills === 0)
+					) {
+						currentMob.lastenemyid = ant.num
+						currentMob.kills++
+						// ant.lastenemyid = currentMob.num
 						currentMob.state[2] = "immune"
 						this.resizeMobs('self', currentMob)
 						ant.state[3] = "dead"

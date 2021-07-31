@@ -115,7 +115,8 @@ class Ants {
 				'alive'//death|recenter|... 
 			],
 			"overlap": [false, false], // [0=self,1=rangeA],
-			"kills": 0
+			"kills": 0,
+			"lastenemyid": 0
 		}
 	}
 	get_colors(a = 1) { // a=alpha

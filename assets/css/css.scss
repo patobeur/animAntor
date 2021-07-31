@@ -63,9 +63,29 @@ body {
 					}
 					.mobinfo {
 						position: absolute;
-						top: -25px;
-						right: -25px;
-						color: rgba(255, 255, 255, 0);
+						top: -100%;
+						left: -100%;
+						width: 300%;
+						height: 300%;
+						color: rgba(255, 255, 255, 0.158);
+						// background-color: rgb(221, 13, 13);
+						display: flex;
+						flex-direction: column;
+						justify-content: flex-start;
+						align-items: flex-start;
+						span.xpspan {
+							position: absolute;
+							top: 0;
+							right: 0;
+							// background-color: khaki;
+						}
+						span.posspan {
+							position: absolute;
+							bottom: 0;
+							width: 100%;
+							text-align: center;
+							// background-color: khaki;
+						}
 					}
 					&:hover .mobinfo {
 						color: rgba(255, 255, 255, 1);
