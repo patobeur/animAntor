@@ -2,18 +2,21 @@
 class Ants {
 	constructor() {
 		// local Datas
-		this.maxAnts = 60
-		this.mobdivContent = "i"
-		this.allAnts = []
+		this.maxAnts = 60;
+		this.mobdivContent = "i";
+		this.allAnts = [];
 		// -----------------------------
 		this.immat = 0 // unique ant num
 
 	}
-	addAnt(name, pos = false) {
+	// this.Ants.addAnt(pDatas.name, pDatas.pos, pDatas.ia, playerid, 180, false, false)
+	addAnt(name, pos = false, ia = true, playerid = false, direction = false) {
+
 		if (this.allAnts.length < this.maxAnts) {
-			this.allAnts.push(this.get_Ant(name, pos))
+			this.allAnts.push(this.get_Ant(name, pos, ia, playerid, direction))
 			this.appendAntDiv()
 			this.immat++
+			this.refreshConsole()
 		}
 	}
 	refreshConsole() {
@@ -46,7 +49,7 @@ class Ants {
 		// Ant rangeA centering
 		antRangeA.style.left = "-" + ((rangeASize / 2) - (this.allAnts[this.allAnts.length - 1].size) / 2) + px
 		antRangeA.style.top = "-" + ((rangeASize / 2) - (this.allAnts[this.allAnts.length - 1].size / 2)) + px
-		antRangeA.style.backgroundColor = "#00000020"//this.allAnts[this.allAnts.length - 1].colors[1] + "15" // rgba
+		//antRangeA.style.backgroundColor = "#00000020"//this.allAnts[this.allAnts.length - 1].colors[1] + "15" // rgba
 		antRangeA.classList.add('rangea')
 		// Ant visual
 		let newMobVisual = document.createElement('div');
@@ -65,25 +68,32 @@ class Ants {
 		// Ant Div
 		let newMobDiv = document.createElement('div');
 		newMobDiv.id = "ant-" + this.allAnts[this.allAnts.length - 1].num
+		newMobDiv.setAttribute("data-name", this.allAnts[this.allAnts.length - 1].name)
 		newMobDiv.style.top = this.allAnts[this.allAnts.length - 1].y + px
 		newMobDiv.style.left = (this.allAnts[this.allAnts.length - 1].x) + px
 		newMobDiv.style.maxWidth = this.allAnts[this.allAnts.length - 1].size + px
 		newMobDiv.style.maxHeight = this.allAnts[this.allAnts.length - 1].size + px
 		newMobDiv.style.width = this.allAnts[this.allAnts.length - 1].size + px
 		newMobDiv.style.height = this.allAnts[this.allAnts.length - 1].size + px
-		newMobDiv.classList.add('ant')
+		newMobDiv.className = this.allAnts[this.allAnts.length - 1].classname
 		// newMobDiv.style.backgroundColor = this.allAnts[this.allAnts.length - 1].colors[0]
-		newMobDiv.setAttribute("data-name", this.allAnts[this.allAnts.length - 1].name)
 		newMobDiv.appendChild(antRangeA)
 		// newMobDiv.appendChild(antRange0)
 		newMobDiv.appendChild(newMobVisual)
 		newMobDiv.appendChild(mobinfo)
 		// append
 		document.getElementById("mob").appendChild(newMobDiv)
-		this.refreshConsole()
+		console.log('xEND ADD DIV appendChild xxxx')
 	}
-	get_Ant(name, pos = false, size = 20, hp = 100, direction = false, velocity = 1, delay = 10, aSize = 3) {
+	get_Ant(name, pos = false, ia = true, playerid = false, direction = false, size = 20, hp = 100, velocity = 1, delay = 10, aSize = 3) {
 
+		direction = (direction === false) ? aleaEntreBornes(0, 359) : direction
+		if (ia === true) {
+			console.log('direction ' + direction)
+		}
+		else {
+			console.log('PLAYERdirection ' + direction)
+		}
 		// random position
 		let aleaX = aleaEntreBornes(1, playGroundSize.w - size)
 		let aleaY = aleaEntreBornes(1, playGroundSize.h - size)
@@ -94,6 +104,7 @@ class Ants {
 		pos = ((!pos === false) ? pos : [aleaX, aleaY])
 		return {
 			"num": this.immat,
+			"ia": ia,
 			"name": name,
 			"size": size,
 			"aSize": aSize, // range a
@@ -101,7 +112,7 @@ class Ants {
 			"pos": pos,
 			"x": pos[0],
 			"y": pos[1],
-			"direction": direction ? direction : aleaEntreBornes(0, 359),
+			"direction": direction,
 			"bousole": "",
 			"velocity": velocity,
 			// "color": 'rgb(' + aleaEntreBornes(50, 255) + ', ' + aleaEntreBornes(50, 255) + ', ' + aleaEntreBornes(50, 255) + ')',
@@ -111,12 +122,15 @@ class Ants {
 			"state": [
 				'', //spawned|busy|walking|thinking|... (use ti be used by scss)
 				'',
-				'', //shielded|immune|... 
+				'', //shielded|immune1Round|... 
 				'alive'//death|recenter|... 
 			],
 			"overlap": [false, false], // [0=self,1=rangeA],
 			"kills": 0,
-			"lastenemyid": 0
+			"lastenemyid": 0,
+			"classname": 'ant ' + (!ia ? 'player ' : ''),
+			"playerid": playerid,
+			"agility": 45
 		}
 	}
 	get_colors(a = 1) { // a=alpha

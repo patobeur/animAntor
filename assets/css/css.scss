@@ -36,21 +36,12 @@ body {
 					.rangea {
 						position: absolute;
 						border-radius: 50%;
-						background: rgba(255, 255, 255, 0.03);
 						// outline: 3px dotted rgba(255, 255, 255, 0.2);
 					}
 					&.overself {
 						.rangeself {
 							border-radius: unset;
-							outline-color: rgba(255, 0, 0, 1);
-							// background: rgba(255, 0, 0, 0.3);
-						}
-					}
-					&.overa {
-						.rangea {
-							border-radius: unset;
-							outline-color: rgb(255, 136, 0);
-							// background: rgba(255, 136, 0, 0.3);
+							outline-color: rgba(255, 0, 0, 0.1);
 						}
 					}
 					.visual {
@@ -93,6 +84,29 @@ body {
 						border-radius: 0.5rem;
 						z-index: 1000;
 					}
+					&.overa {
+						.rangea {
+							border-radius: unset;
+							// background: rgba(255, 136, 0, 0.3);
+						}
+					}
+					&.player {
+						.rangea {
+							outline: 2px dotted rgba(255, 255, 255, 0.1);
+							background-color: rgba(255, 0, 0, 0.02);
+						}
+						&.overa {
+							.rangea {
+								outline: 2px dotted rgba(255, 0, 0, 0.1);
+								// background-color: rgba(255, 0, 0, 0.08);
+							}
+						}
+					}
+				}
+				&.outlined {
+					.rangea {
+						outline: 3px dotted rgba(255, 255, 255, 0.2);
+					}
 				}
 			}
 		}
@@ -129,7 +143,8 @@ body {
 				#mobdead,
 				#respawned,
 				#respawning,
-				#worldtype {
+				#worldtype,
+				#outlined {
 					padding: 0.2rem 0.5rem;
 					width: max-content;
 				}

@@ -49,17 +49,11 @@ body #fullscreen #playground #mob .ant .rangeself,
 body #fullscreen #playground #mob .ant .rangea {
   position: absolute;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.03);
 }
 
 body #fullscreen #playground #mob .ant.overself .rangeself {
   border-radius: unset;
-  outline-color: red;
-}
-
-body #fullscreen #playground #mob .ant.overa .rangea {
-  border-radius: unset;
-  outline-color: #ff8800;
+  outline-color: rgba(255, 0, 0, 0.1);
 }
 
 body #fullscreen #playground #mob .ant .visual {
@@ -109,6 +103,23 @@ body #fullscreen #playground #mob .ant:hover .mobinfo {
   color: white;
   border-radius: 0.5rem;
   z-index: 1000;
+}
+
+body #fullscreen #playground #mob .ant.overa .rangea {
+  border-radius: unset;
+}
+
+body #fullscreen #playground #mob .ant.player .rangea {
+  outline: 2px dotted rgba(255, 255, 255, 0.1);
+  background-color: rgba(255, 0, 0, 0.02);
+}
+
+body #fullscreen #playground #mob .ant.player.overa .rangea {
+  outline: 2px dotted rgba(255, 0, 0, 0.1);
+}
+
+body #fullscreen #playground #mob.outlined .rangea {
+  outline: 3px dotted rgba(255, 255, 255, 0.2);
 }
 
 body #fullscreen #info {
@@ -166,11 +177,13 @@ body #fullscreen #buttons .console-item #mobdead,
 body #fullscreen #buttons .console-item #respawned,
 body #fullscreen #buttons .console-item #respawning,
 body #fullscreen #buttons .console-item #worldtype,
+body #fullscreen #buttons .console-item #outlined,
 body #fullscreen #console .console-item #mobcount,
 body #fullscreen #console .console-item #mobdead,
 body #fullscreen #console .console-item #respawned,
 body #fullscreen #console .console-item #respawning,
-body #fullscreen #console .console-item #worldtype {
+body #fullscreen #console .console-item #worldtype,
+body #fullscreen #console .console-item #outlined {
   padding: 0.2rem 0.5rem;
   width: -webkit-max-content;
   width: -moz-max-content;

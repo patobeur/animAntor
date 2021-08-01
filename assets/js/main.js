@@ -8,6 +8,7 @@ let interval = 1000 / 240 // render speed
 
 // -----------------------------
 let worldType = "mirrored" //  "mirrored" || "closed"
+let outLinedBool = true //  "outlined" || ""
 let respawn = true
 // -----------------------------
 let px = 'px'
@@ -18,7 +19,7 @@ let nbDeadAnts = 0 // total mob out
 let nbRespawnAnts = 0 // total mob respawned if respawn = true
 // -----------------------------
 let playGround, mobCount, mobDead // counts
-let mobRespawn, resPawning, isresPawning, worldtype, isworldtype
+let mobRespawn, resPawning, isresPawning, worldtype, isworldtype, outlined, isoutlined
 let mobGround // element div for mob spawn
 // let playGroundSize = { 'w': 1280, 'h': 640 };
 let playGroundSize = { 'w': window.innerWidth, 'h': window.innerHeight };
@@ -45,6 +46,9 @@ function WindowisLoaded() {
 	isworldtype = document.getElementById('isworldtype')
 	worldtype = document.getElementById('worldtype')
 
+	isoutlined = document.getElementById('isoutlined')
+	outlined = document.getElementById('outlined')
+
 	PlayGround = new AntAnimator()
 	PlayGround.Ants.playGroundSize = playGroundSize
 	PlayGround.set_respawn(respawn)
@@ -58,11 +62,19 @@ function WindowisLoaded() {
 			if (eventkeydown.key === "n") { PlayGround.Ants.addAnt("amy") }
 			if (eventkeydown.key === "s") { PlayGround.set_respawn() }
 			if (eventkeydown.key === "w") { PlayGround.set_worldtype() }
+
+			if (eventkeydown.key === "q") { PlayGround.PlayGoLeft(0) }
+			if (eventkeydown.key === "d") { PlayGround.PlayGoRight(0) }
+			if (eventkeydown.key === "ArrowLeft") { PlayGround.PlayGoLeft(0) }
+			if (eventkeydown.key === "ArrowRight") { PlayGround.PlayGoRight(0) }
+
+			// if (eventkeydown.key === "i") { /* display info modal */ }
+			if (eventkeydown.key === " ") { PlayGround.addPlayer() }
 		}
 		if (eventkeydown.key === "Escape") { PlayGround.pause() }
 		if (eventkeydown.key === "p") { PlayGround.pause() }
 
-		console.log(eventkeydown.key)
+		// console.log(eventkeydown.key)
 	};
 	isresPawning.addEventListener("click", () => {
 		if (!pause) {
@@ -72,6 +84,9 @@ function WindowisLoaded() {
 	isworldtype.addEventListener("click", () => {
 		PlayGround.set_worldtype()
 	})
+	isoutlined.addEventListener("click", () => {
+		PlayGround.set_outlined()
+	})
 	mobGround.addEventListener("click", (eve) => {
 		if (eve.target.id === "mob") {
 			let yyy = eve.clientY - ((window.innerHeight - playGroundSize.h) / 2)
@@ -80,6 +95,7 @@ function WindowisLoaded() {
 
 		}
 	})
+
 }
 
 // STARTER

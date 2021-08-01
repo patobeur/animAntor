@@ -6,6 +6,10 @@ class AntAnimator {
 		this.maxx = 0
 		this.ratio = 1
 		// -----------------------------
+		this.playersList = [];
+		this.playersDatas = [];
+		this.maxPlayer = 1;
+		// -----------------------------
 		this.antsToDelete = []
 		this.antsToRecenter = []
 		// playGroundSize = { 'w': 640, 'h': 320 };
@@ -17,12 +21,41 @@ class AntAnimator {
 		this.Ants = new Ants(playGroundSize); // Ants ref only
 		setInterval(this.renderScene, interval)
 	}
+	addPlayer() {
+
+		console.log('---' + this.playersDatas.length)
+		let playerid = this.playersDatas.length
+		if (playerid < this.maxPlayer) {
+			let pDatas = {
+				name: "player-" + playerid,
+				pos: [parseInt((playGroundSize.w) / 2), parseInt((playGroundSize.h) / 2)],
+				ia: false,
+				divid: 'ant-' + this.Ants.immat,
+				compass: [0, 0, 0, 0] // up,right,down,left dir
+			}
+			//--
+			this.playersList[playerid] = this.Ants.immat
+			this.playersDatas[this.Ants.immat] = pDatas
+			this.Ants.addAnt(pDatas.name, pDatas.pos, pDatas.ia, playerid, 80)
+		}
+		else {
+			console.log('to many new players', this.playersDatas)
+		}
+	}
+	niceDegres = (actualdegres, step, type) => {
+		if (type === 'left') {
+			return (actualdegres - step) < 0 ? 360 - actualdegres - step : actualdegres - step
+		}
+		else {
+			return (actualdegres + step) > 360 ? actualdegres + step - 360 : actualdegres + step
+		}
+	}
 	mobsIA = () => {
 		let currentMobIdx = 0
-		this.resetOverlapsAndImmune()
-		function selectNewDirection(actualdir) {
+		this.resetOverlapsAndimmune1Round()
+		let selectNewDirection = (actualdir, agility) => {
 			// to do
-			let nd = actualdir += aleaEntreBornes(-50, 50)
+			let nd = actualdir += aleaEntreBornes(-agility, agility)
 			nd = nd > 360 ? 0 : nd
 			nd = nd < 0 ? 360 : nd
 			return nd
@@ -31,29 +64,39 @@ class AntAnimator {
 			if (ant.state[0] === "") {
 				ant.state[0] = "walking"
 			}
-
 			// delay refresh
 			ant.delay[0] = ant.delay[0] < ant.delay[1] ? ant.delay[0] += 1 : 0
 			// select a new direction = nd
 			if (ant.state[0] === "walking") {
-				if (ant.delay[0] >= ant.delay[1]) {
-					ant.delay[0] = 0;
-					ant.direction = selectNewDirection(ant.direction)
-					// ant.state[0] = "walking"
+				if (ant.ia === true) {
+					if (ant.delay[0] >= ant.delay[1]) {
+						ant.delay[0] = 0;
+						ant.direction = selectNewDirection(ant.direction, ant.agility)
+						// ant.state[0] = "walking"
+					}
+					else {
+						ant.delay[0] += 1
+					}
 				}
 				else {
-					ant.delay[0] += 1
+					// ant.state[0] = "walking"
+					// if (ant.delay[0] >= ant.delay[1]) {
+					ant.delay[0] = 0;
+					let compass = this.playersDatas[this.playersList[ant.playerid]].compass // [up,right,down,left]
+					// if (compass[0] === 1) { compass[0] = 0, ant.direction = ant.direction -ant.agility } // up
+					if (compass[1] === 1) { compass[1] = 0, ant.direction = this.niceDegres(ant.direction, ant.agility, 'right') } // right
+					// if (compass[2] === 1) { compass[2] = 0, ant.direction = ant.direction + ant.agility } // down
+					if (compass[3] === 1) { compass[3] = 0, ant.direction = this.niceDegres(ant.direction, ant.agility, 'left') } // left
+					compass = [0, 0, 0, 0]
 				}
 			}
 			if (ant.state[0] === "walking") {
-
 				// calculating ratio (0 to 1) to get a direction
 				{
-					// tansforming degre in pourcentage
-					// wtf idea ???
+					// tansforming degre in pourcentage...wtf idea ???
 					let ratioDir = parseInt(ant.direction / 360 * 1000) / 1000
 					// north
-					if (ratioDir > 0.9375 && ratioDir <= 0.0625) { ant.boussole = "N"; ant.y -= ant.velocity }
+					if (ratioDir >= 0 && ratioDir <= 0.0625) { ant.boussole = "N"; ant.y -= ant.velocity }
 					// north est
 					if (ratioDir > 0.0625 && ratioDir <= 0.1875) { ant.boussole = "NE"; ant.x += ant.velocity; ant.y -= ant.velocity }
 					// est
@@ -67,7 +110,7 @@ class AntAnimator {
 					// west
 					if (ratioDir > 0.6875 && ratioDir <= 0.8125) { ant.boussole = "W"; ant.x -= ant.velocity; }
 					// north west
-					if (ratioDir > 0.8125 && ratioDir <= 0.9375) { ant.boussole = "NW"; ant.x -= ant.velocity; ant.y -= ant.velocity }
+					if (ratioDir > 0.8125 && ratioDir <= 1) { ant.boussole = "NW"; ant.x -= ant.velocity; ant.y -= ant.velocity }
 				}
 
 				// is the mob running out playground
@@ -88,7 +131,7 @@ class AntAnimator {
 			this.checkOverlaps(ant)
 
 			// delete and respawn if is the mob stat is out
-			if (ant.state[3] === "dead") {
+			if (ant.ia && ant.state[3] === "dead") {
 				this.addMobToDeletation(currentMobIdx)
 			}
 			// recenter if is the mob stat is out
@@ -127,6 +170,7 @@ class AntAnimator {
 		else {
 			respawn = respawn ? false : true
 		}
+		// refresh button info
 		if (respawn) {
 			isresPawning.classList.add('active')
 			resPawning.textContent = "On"
@@ -145,6 +189,21 @@ class AntAnimator {
 			worldtype.textContent = "Mirror"
 			isworldtype.classList.remove('active')
 		}
+	}
+	set_outlined() {
+		console.log('outlined', outLinedBool)
+		if (outLinedBool === true) {
+			outlined.textContent = "NoOutline"
+			mobGround.classList.remove('outlined')
+			outlined.classList.remove('active')
+			outLinedBool = false;
+		} else {
+			outlined.textContent = "Outlined"
+			mobGround.classList.add('outlined')
+			outlined.classList.add('active')
+			outLinedBool = true;
+		}
+		console.log('outlined', outLined)
 	}
 	addMobToDeletation(idx) {
 		this.antsToDelete.push(idx)
@@ -203,7 +262,7 @@ class AntAnimator {
 			let classSelf = (ant.overlap[0] === true) ? " overself" : ""
 			let classRangeA = (ant.overlap[1] === true) ? " overa" : ""
 			let classDead = (ant.state[3] === "dead") ? " dead" : ""
-			currentMob.className = 'ant ' + ant.state[0] + classSelf + classRangeA + classDead;
+			currentMob.className = 'ant ' + ((!ant.ia) ? ' player ' : '') + ant.state[0] + classSelf + classRangeA + classDead;
 			// refresh info
 			let mobinfo = document.createElement('div')
 			mobinfo.className = "mobinfo"
@@ -226,7 +285,7 @@ class AntAnimator {
 			currentMob.appendChild(mobinfo)
 		});
 	}
-	isOverlapping = (function () {
+	isOverlapping = (() => {
 		function getArea(mob) {
 			return [
 				[
@@ -260,21 +319,24 @@ class AntAnimator {
 				compareAreas(getAreaRangeA(mobA)[0], getAreaRangeA(mobB)[0]) && compareAreas(getAreaRangeA(mobA)[1], getAreaRangeA(mobB)[1])
 			];
 		};
-	})();
-	resetOverlapsAndImmune() {
+	})(
+		// ???
+	);
+	//--
+	resetOverlapsAndimmune1Round() {
 		this.Ants.allAnts.forEach(ant => {
 			ant.overlap = [false, false]
-			ant.state[2] = (ant.state[2] === 'immune') ? 'alive' : ant.state[2]
+			ant.state[2] = (ant.state[2] === 'immune1Round') ? 'alive' : ant.state[2]
 		})
 	}
-	checkOverlaps(currentMob) {
+	checkOverlaps = (currentMob) => {
 		this.Ants.allAnts.forEach(ant => {
-			if (currentMob.num != ant.num && !(currentMob.state[3] === "dead")) {//can't collid my self ?
+			if (ant.ia && currentMob.num != ant.num && !(currentMob.state[3] === "dead")) {//can't collid my self ?
 				let alloverlaps = this.isOverlapping(currentMob, ant)
 				if (alloverlaps[0]) {
 					currentMob.overlap[0] = true
 					ant.overlap[0] = true
-					if (ant.state[2] != "immune"
+					if (ant.state[2] != "immune1Round"
 						&& ant.size <= currentMob.size
 						&& ant.num != currentMob.lastenemyid
 						&& (ant.kills < currentMob.kills || ant.kills === 0)
@@ -282,7 +344,8 @@ class AntAnimator {
 						currentMob.lastenemyid = ant.num
 						currentMob.kills++
 						// ant.lastenemyid = currentMob.num
-						currentMob.state[2] = "immune"
+						// give imunity from the dead target for iterations before resetOverlapsAndimmune1Round
+						currentMob.state[2] = "immune1Round"
 						this.resizeMobs('self', currentMob)
 						ant.state[3] = "dead"
 					}
@@ -301,5 +364,21 @@ class AntAnimator {
 			this.mobsIA()
 			this.redrawAllMobs()
 		}
+	}
+	PlayGoTop = (idx) => {
+		this.playersDatas[this.playersList[idx]].compass[0] = 1
+		console.log('kkk' + this.playersDatas[this.playersList[idx]].compass)
+	}
+	PlayGoRight = (idx) => {
+		this.playersDatas[this.playersList[idx]].compass[1] = 1
+		console.log('kkk' + this.playersDatas[this.playersList[idx]].compass)
+	}
+	PlayGoDown = (idx) => {
+		this.playersDatas[this.playersList[idx]].compass[2] = 1
+		console.log('kkk' + this.playersDatas[this.playersList[idx]].compass)
+	}
+	PlayGoLeft = (idx) => {
+		this.playersDatas[this.playersList[idx]].compass[3] = 1
+		console.log('kkk' + this.playersDatas[this.playersList[idx]].compass)
 	}
 }
