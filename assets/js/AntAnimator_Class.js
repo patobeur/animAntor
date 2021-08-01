@@ -36,7 +36,7 @@ class AntAnimator {
 			//--
 			this.playersList[playerid] = this.Ants.immat
 			this.playersDatas[this.Ants.immat] = pDatas
-			this.Ants.addAnt(pDatas.name, pDatas.pos, pDatas.ia, playerid, 80)
+			this.Ants.addAnt(pDatas.name, pDatas.pos, pDatas.ia, playerid, 0)
 		}
 		else {
 			console.log('to many new players', this.playersDatas)
