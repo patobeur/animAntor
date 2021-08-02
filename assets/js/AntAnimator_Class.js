@@ -12,34 +12,50 @@ class AntAnimator {
 		// -----------------------------
 		this.antsToDelete = []
 		this.antsToRecenter = []
+		this.CurrentMaxKills = 0;
 		// playGroundSize = { 'w': 640, 'h': 320 };
 		// playGroundSize = { 'w': 1280, 'h': 640 };
 		playGround = document.getElementById('playground')
 		playGround.style.width = playGroundSize.w + px
 		playGround.style.height = playGroundSize.h + px
 		resizePlayGround()
-		this.Ants = new Ants(playGroundSize); // Ants ref only
-		setInterval(this.renderScene, interval)
+		this.Ants = new Ants(); // Ants ref only
+		this.GameOn = false
+		this.GameOver = false
+
+	}
+	startGame() {
+		if (!this.GameOn && !this.GameOver) {
+			this.GameOn = true
+			this.GameOver = false
+			setInterval(this.renderScene, interval)
+		}
+		this.addPlayer()
 	}
 	addPlayer() {
 
-		console.log('---' + this.playersDatas.length)
-		let playerid = this.playersDatas.length
-		if (playerid < this.maxPlayer) {
-			let pDatas = {
-				name: "player-" + playerid,
-				pos: [parseInt((playGroundSize.w) / 2), parseInt((playGroundSize.h) / 2)],
-				ia: false,
-				divid: 'ant-' + this.Ants.immat,
-				compass: [0, 0, 0, 0] // up,right,down,left dir
+		if (this.GameOn && !this.GameOver) {
+			console.log('---' + this.playersList.length)
+			let playerid = this.playersList.length
+			if (playerid < this.maxPlayer) {
+				let pDatas = {
+					name: "player-" + playerid,
+					pos: [parseInt((playGroundSize.w) / 2), parseInt((playGroundSize.h) / 2)],
+					ia: false,
+					divid: 'ant-' + this.Ants.immat,
+					compass: [0, 0, 0, 0] // up,right,down,left dir
+				}
+				//--
+				this.playersList[playerid] = this.Ants.immat
+				this.playersDatas[this.Ants.immat] = pDatas
+				this.Ants.addAnt(pDatas.name, pDatas.pos, pDatas.ia, playerid, 0)
 			}
-			//--
-			this.playersList[playerid] = this.Ants.immat
-			this.playersDatas[this.Ants.immat] = pDatas
-			this.Ants.addAnt(pDatas.name, pDatas.pos, pDatas.ia, playerid, 0)
+			else {
+				console.log('to many new players', this.playersDatas)
+			}
 		}
 		else {
-			console.log('to many new players', this.playersDatas)
+			console.log('game not started')
 		}
 	}
 	niceDegres = (actualdegres, step, type) => {
@@ -48,6 +64,14 @@ class AntAnimator {
 		}
 		else {
 			return (actualdegres + step) > 360 ? actualdegres + step - 360 : actualdegres + step
+		}
+	}
+	niceAltitudes = (actualaltitudes, step, type) => {
+		if (type === 'up') {
+			return (actualaltitudes + step) > 10 ? 10 : actualaltitudes + step
+		}
+		else {
+			return (actualaltitudes - step) < 0 ? 0 : actualaltitudes - step
 		}
 	}
 	mobsIA = () => {
@@ -80,18 +104,17 @@ class AntAnimator {
 				}
 				else {
 					// ant.state[0] = "walking"
-					// if (ant.delay[0] >= ant.delay[1]) {
 					ant.delay[0] = 0;
 					let compass = this.playersDatas[this.playersList[ant.playerid]].compass // [up,right,down,left]
-					// if (compass[0] === 1) { compass[0] = 0, ant.direction = ant.direction -ant.agility } // up
 					if (compass[1] === 1) { compass[1] = 0, ant.direction = this.niceDegres(ant.direction, ant.agility, 'right') } // right
-					// if (compass[2] === 1) { compass[2] = 0, ant.direction = ant.direction + ant.agility } // down
 					if (compass[3] === 1) { compass[3] = 0, ant.direction = this.niceDegres(ant.direction, ant.agility, 'left') } // left
+					if (compass[0] === 1) { compass[0] = 0, ant.direction = ant.direction - ant.agility } // up
+					if (compass[2] === 1) { compass[2] = 0, ant.direction = ant.direction + ant.agility } // down
 					compass = [0, 0, 0, 0]
 				}
 			}
+			// calculating ratio (0 to 1) to get a direction
 			if (ant.state[0] === "walking") {
-				// calculating ratio (0 to 1) to get a direction
 				{
 					// tansforming degre in pourcentage...wtf idea ???
 					let ratioDir = parseInt(ant.direction / 360 * 1000) / 1000
@@ -131,8 +154,15 @@ class AntAnimator {
 			this.checkOverlaps(ant)
 
 			// delete and respawn if is the mob stat is out
-			if (ant.ia && ant.state[3] === "dead") {
-				this.addMobToDeletation(currentMobIdx)
+			if (ant.state[3] === "dead") {
+				if (ant.ia) {
+					this.addMobToDeletation(currentMobIdx)
+				}
+				else {
+					console.log('player ' + ant.playerid + 'dead')
+					this.addMobToDeletation(currentMobIdx)
+					this.addPlayerToDeletation(ant.playerid, ant.num)
+				}
 			}
 			// recenter if is the mob stat is out
 			if (ant.state[1] === "recenter") {
@@ -208,6 +238,14 @@ class AntAnimator {
 	addMobToDeletation(idx) {
 		this.antsToDelete.push(idx)
 		nbDeadAnts++
+	}
+	addPlayerToDeletation(idx, num) {
+		console.log(this.playersDatas)
+		console.log(this.playersList)
+		this.playersDatas.splice(num, 1)
+		this.playersList.splice(idx, 1)
+		console.log(this.playersDatas)
+		console.log(this.playersList)
 	}
 	addMobToRecentering(idx) {
 		this.antsToRecenter.push(idx)
@@ -331,13 +369,12 @@ class AntAnimator {
 	}
 	checkOverlaps = (currentMob) => {
 		this.Ants.allAnts.forEach(ant => {
-			if (ant.ia && currentMob.num != ant.num && !(currentMob.state[3] === "dead")) {//can't collid my self ?
+			if (currentMob.num != ant.num && !(currentMob.state[3] === "dead")) {//can't collid my self ?
 				let alloverlaps = this.isOverlapping(currentMob, ant)
 				if (alloverlaps[0]) {
 					currentMob.overlap[0] = true
 					ant.overlap[0] = true
 					if (ant.state[2] != "immune1Round"
-						&& ant.size <= currentMob.size
 						&& ant.num != currentMob.lastenemyid
 						&& (ant.kills < currentMob.kills || ant.kills === 0)
 					) {
@@ -360,25 +397,25 @@ class AntAnimator {
 	}
 	pause() { pause = pause ? false : true }
 	renderScene = () => {
-		if (!pause) {
+		this.redrawAllMobs()
+		if (!pause && this.GameOn) {
 			this.mobsIA()
-			this.redrawAllMobs()
 		}
 	}
 	PlayGoTop = (idx) => {
 		this.playersDatas[this.playersList[idx]].compass[0] = 1
-		console.log('kkk' + this.playersDatas[this.playersList[idx]].compass)
+		// console.log(this.playersDatas[this.playersList[idx]].compass)
 	}
 	PlayGoRight = (idx) => {
 		this.playersDatas[this.playersList[idx]].compass[1] = 1
-		console.log('kkk' + this.playersDatas[this.playersList[idx]].compass)
+		// console.log(this.playersDatas[this.playersList[idx]].compass)
 	}
 	PlayGoDown = (idx) => {
 		this.playersDatas[this.playersList[idx]].compass[2] = 1
-		console.log('kkk' + this.playersDatas[this.playersList[idx]].compass)
+		// console.log(this.playersDatas[this.playersList[idx]].compass)
 	}
 	PlayGoLeft = (idx) => {
 		this.playersDatas[this.playersList[idx]].compass[3] = 1
-		console.log('kkk' + this.playersDatas[this.playersList[idx]].compass)
+		// console.log(this.playersDatas[this.playersList[idx]].compass)
 	}
 }

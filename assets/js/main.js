@@ -2,7 +2,7 @@
 // Ant's PlayGround
 let PlayGround = Object
 let pause = false
-let startSpawn = 40 // automatique spawner
+let startSpawn = 20 // automatique spawner
 // -----------------------------
 let interval = 1000 / 240 // render speed
 
@@ -60,16 +60,20 @@ function WindowisLoaded() {
 	document.onkeydown = (eventkeydown) => {
 		if (!pause) {
 			if (eventkeydown.key === "n") { PlayGround.Ants.addAnt("amy") }
-			if (eventkeydown.key === "s") { PlayGround.set_respawn() }
+			if (eventkeydown.key === "r") { PlayGround.set_respawn() }
 			if (eventkeydown.key === "w") { PlayGround.set_worldtype() }
 
 			if (eventkeydown.key === "q") { PlayGround.PlayGoLeft(0) }
 			if (eventkeydown.key === "d") { PlayGround.PlayGoRight(0) }
 			if (eventkeydown.key === "ArrowLeft") { PlayGround.PlayGoLeft(0) }
 			if (eventkeydown.key === "ArrowRight") { PlayGround.PlayGoRight(0) }
+			if (eventkeydown.key === "ArrowUp") { PlayGround.PlayGoUp(0) }
+			if (eventkeydown.key === "ArrowDown") { PlayGround.PlayGoDown(0) }
+			if (eventkeydown.key === "z") { PlayGround.PlayGoUp(0) }
+			if (eventkeydown.key === "s") { PlayGround.PlayGoDown(0) }
 
 			// if (eventkeydown.key === "i") { /* display info modal */ }
-			if (eventkeydown.key === " ") { PlayGround.addPlayer() }
+			if (eventkeydown.key === " ") { PlayGround.startGame() }
 		}
 		if (eventkeydown.key === "Escape") { PlayGround.pause() }
 		if (eventkeydown.key === "p") { PlayGround.pause() }

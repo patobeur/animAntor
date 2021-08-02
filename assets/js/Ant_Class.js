@@ -7,7 +7,6 @@ class Ants {
 		this.allAnts = [];
 		// -----------------------------
 		this.immat = 0 // unique ant num
-
 	}
 	// this.Ants.addAnt(pDatas.name, pDatas.pos, pDatas.ia, playerid, 180, false, false)
 	addAnt(name, pos = false, ia = true, playerid = false, direction = false) {
@@ -55,8 +54,8 @@ class Ants {
 		let newMobVisual = document.createElement('div');
 		// newMobVisual.id = "visual-" + this.allAnts[this.allAnts.length - 1].num
 		newMobVisual.classList.add('visual')
-		// newMobVisual.style.top = "0px"
-		// newMobVisual.style.left = "0px"
+		// newMobVisual.style.top = 0
+		// newMobVisual.style.left = 0
 		newMobVisual.style.width = this.allAnts[this.allAnts.length - 1].size + px
 		newMobVisual.style.height = this.allAnts[this.allAnts.length - 1].size + px
 		newMobVisual.style.backgroundImage = 'url("assets/img/' +
@@ -87,21 +86,8 @@ class Ants {
 	}
 	get_Ant(name, pos = false, ia = true, playerid = false, direction = false, size = 20, hp = 100, velocity = 1, delay = 10, aSize = 3) {
 
-		direction = (direction === false) ? aleaEntreBornes(0, 359) : direction
-		if (ia === true) {
-			console.log('direction ' + direction)
-		}
-		else {
-			console.log('PLAYERdirection ' + direction)
-		}
-		// random position
-		let aleaX = aleaEntreBornes(1, playGroundSize.w - size)
-		let aleaY = aleaEntreBornes(1, playGroundSize.h - size)
-		// random position
-		// let aleaX = parseInt(playGroundSize.w / 2)
-		// let aleaY = parseInt(playGroundSize.h / 2)
 		// centered position
-		pos = ((!pos === false) ? pos : [aleaX, aleaY])
+		pos = (pos ? pos : [aleaEntreBornes(1, playGroundSize.w - size), aleaEntreBornes(1, playGroundSize.h - size)])
 		return {
 			"num": this.immat,
 			"ia": ia,
@@ -112,7 +98,7 @@ class Ants {
 			"pos": pos,
 			"x": pos[0],
 			"y": pos[1],
-			"direction": direction,
+			"direction": (direction === false) ? aleaEntreBornes(0, 359) : direction,
 			"bousole": "",
 			"velocity": velocity,
 			// "color": 'rgb(' + aleaEntreBornes(50, 255) + ', ' + aleaEntreBornes(50, 255) + ', ' + aleaEntreBornes(50, 255) + ')',
