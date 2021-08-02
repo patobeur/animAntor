@@ -2,7 +2,6 @@
 // Ant's PlayGround
 let PlayGround = Object
 let pause = false
-let startSpawn = 20 // automatique spawner
 // -----------------------------
 let interval = 1000 / 240 // render speed
 
@@ -23,7 +22,8 @@ let mobRespawn, resPawning, isresPawning, worldtype, isworldtype, outlined, isou
 let mobGround // element div for mob spawn
 // let playGroundSize = { 'w': 1280, 'h': 640 };
 let playGroundSize = { 'w': window.innerWidth, 'h': window.innerHeight };
-//let playGroundSize = { 'w': 150, 'h': 150 };
+//---
+let startSpawn = ((playGroundSize.w + playGroundSize.h) / 2) / 30 // automatique spawner
 // -----------------------------
 
 

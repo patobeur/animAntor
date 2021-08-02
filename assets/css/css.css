@@ -12,6 +12,7 @@ body {
 }
 
 body #fullscreen {
+  position: relative;
   height: 100vh;
   width: 100%;
   display: -webkit-box;
@@ -23,6 +24,8 @@ body #fullscreen {
           flex-direction: column;
   background: #804040;
   overflow: hidden;
+  -webkit-perspective: 200px;
+          perspective: 200px;
 }
 
 body #fullscreen #playground {
@@ -31,6 +34,16 @@ body #fullscreen #playground {
   height: calc(100% - 2rem);
   width: calc(100% - 2rem);
   border-radius: 1rem;
+  -webkit-transition: 10s -webkit-transform ease-in-out;
+  transition: 10s -webkit-transform ease-in-out;
+  transition: 10s transform ease-in-out;
+  transition: 10s transform ease-in-out, 10s -webkit-transform ease-in-out;
+  -webkit-transform-origin: bottom;
+          transform-origin: bottom;
+  -webkit-transform: rotateX(10deg) translate3d(0, -10%, -40px);
+  transform: rotateX(10deg) translate3d(0, -10%, -40px);
+  outline: 5px solid rgba(172, 255, 47, 0.116);
+  background-image: url(../img/grille_20px.png);
 }
 
 body #fullscreen #playground #mob {
@@ -64,6 +77,23 @@ body #fullscreen #playground #mob .ant .visual {
   text-align: center;
 }
 
+body #fullscreen #playground #mob .ant.overa .rangea {
+  border-radius: unset;
+}
+
+body #fullscreen #playground #mob .ant.player .rangea {
+  outline: 2px dotted rgba(255, 255, 255, 0.1);
+  background-color: rgba(255, 255, 255, 0.03);
+}
+
+body #fullscreen #playground #mob .ant.player.overa .rangea {
+  outline: 2px dotted rgba(255, 0, 0, 0.1);
+}
+
+body #fullscreen #playground #mob.outlined .rangea {
+  outline: 3px dotted rgba(255, 255, 255, 0.2);
+}
+
 body #fullscreen #playground #mob .ant .mobinfo {
   position: absolute;
   top: -100%;
@@ -86,6 +116,10 @@ body #fullscreen #playground #mob .ant .mobinfo {
           align-items: flex-start;
 }
 
+body #fullscreen #playground #mob .ant .mobinfo span {
+  display: none;
+}
+
 body #fullscreen #playground #mob .ant .mobinfo span.xpspan {
   position: absolute;
   top: 0;
@@ -96,30 +130,36 @@ body #fullscreen #playground #mob .ant .mobinfo span.posspan {
   position: absolute;
   bottom: 0;
   width: 100%;
+  text-align: left;
+}
+
+body #fullscreen #playground #mob .ant .mobinfo span.namespan {
+  display: initial;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
   text-align: center;
 }
 
-body #fullscreen #playground #mob .ant:hover .mobinfo {
-  color: white;
-  border-radius: 0.5rem;
-  z-index: 1000;
+body #fullscreen #playground #mob .ant .mobinfo:hover {
+  position: absolute;
+  content: "!";
+  position: absolute;
+  top: -40px;
+  left: 100%;
+  width: 80px;
+  height: 40px;
+  border-radius: 5px;
+  background-color: rgba(255, 255, 255, 0.2);
+  z-index: +1;
 }
 
-body #fullscreen #playground #mob .ant.overa .rangea {
-  border-radius: unset;
+body #fullscreen #playground #mob .ant .mobinfo:hover span {
+  display: initial;
 }
 
-body #fullscreen #playground #mob .ant.player .rangea {
-  outline: 2px dotted rgba(255, 255, 255, 0.1);
-  background-color: rgba(255, 0, 0, 0.02);
-}
-
-body #fullscreen #playground #mob .ant.player.overa .rangea {
-  outline: 2px dotted rgba(255, 0, 0, 0.1);
-}
-
-body #fullscreen #playground #mob.outlined .rangea {
-  outline: 3px dotted rgba(255, 255, 255, 0.2);
+body #fullscreen #playground #mob .ant .mobinfo:hover span.namespan {
+  text-align: right;
 }
 
 body #fullscreen #info {

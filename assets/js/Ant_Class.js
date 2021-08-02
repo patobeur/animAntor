@@ -59,7 +59,7 @@ class Ants {
 		newMobVisual.style.width = this.allAnts[this.allAnts.length - 1].size + px
 		newMobVisual.style.height = this.allAnts[this.allAnts.length - 1].size + px
 		newMobVisual.style.backgroundImage = 'url("assets/img/' +
-			(this.allAnts[this.allAnts.length - 1].colors[1] === '#000000' ? 'antblack.png' : 'antwhite.png') +
+			(this.allAnts[this.allAnts.length - 1].colors[1] === '#000000' ? 'ladybug_black.svg' : 'ladybug_white.svg') +
 			'")'
 		newMobVisual.style.backgroundColor = this.allAnts[this.allAnts.length - 1].colors[0]
 		newMobVisual.textContent = this.mobdivContent

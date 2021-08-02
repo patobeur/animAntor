@@ -9,20 +9,31 @@ body {
 	font-weight: bold;
 	background: rgb(0, 0, 0);
 	#fullscreen {
+		position: relative;
 		height: 100vh;
 		width: 100%;
 		display: flex;
 		flex-direction: column;
 		background: rgb(128, 64, 64);
 		overflow: hidden;
+		perspective: 200px;
 		#playground {
 			position: absolute;
 			background: rgb(53, 53, 53);
 			height: calc(100% - 2rem);
 			width: calc(100% - 2rem);
-			// overflow: hidden;
 			border-radius: 1rem;
+			// -webkit-transform-style: preserve-3d;
+			// transform-style: preserve-3d;
+			transition: 10s transform ease-in-out;
+			transform-origin: bottom;
+			-webkit-transform: rotateX(10deg) translate3d(0, -10%, -40px);
+			transform: rotateX(10deg) translate3d(0, -10%, -40px);
+			outline: 5px solid rgba(172, 255, 47, 0.116);
+			background-image: url(../img/grille_20px.png);
 			#mob {
+				// stringCss = stringCss + '-webkit-transform-style: preserve-3d;'
+				// stringCss = stringCss + 'transform-style: preserve-3d;'
 				position: relative;
 				// background: rgba(42, 107, 4, 0.842);
 				height: 100%;
@@ -52,38 +63,6 @@ body {
 						// outline: 1px solid rgba(255, 255, 255, 1);
 						text-align: center;
 					}
-					.mobinfo {
-						position: absolute;
-						top: -100%;
-						left: -100%;
-						width: 300%;
-						height: 300%;
-						color: rgba(255, 255, 255, 0.158);
-						// background-color: rgb(221, 13, 13);
-						display: flex;
-						flex-direction: column;
-						justify-content: flex-start;
-						align-items: flex-start;
-						span.xpspan {
-							position: absolute;
-							top: 0;
-							right: 0;
-							// background-color: khaki;
-						}
-						span.posspan {
-							position: absolute;
-							bottom: 0;
-							width: 100%;
-							text-align: center;
-							// background-color: khaki;
-						}
-					}
-					&:hover .mobinfo {
-						color: rgba(255, 255, 255, 1);
-						// background: rgba(255, 0, 0, 0.3);
-						border-radius: 0.5rem;
-						z-index: 1000;
-					}
 					&.overa {
 						.rangea {
 							border-radius: unset;
@@ -91,9 +70,10 @@ body {
 						}
 					}
 					&.player {
+						// filter: invert(0.5);
 						.rangea {
 							outline: 2px dotted rgba(255, 255, 255, 0.1);
-							background-color: rgba(255, 0, 0, 0.02);
+							background-color: rgba(255, 255, 255, 0.03);
 						}
 						&.overa {
 							.rangea {
@@ -106,6 +86,68 @@ body {
 				&.outlined {
 					.rangea {
 						outline: 3px dotted rgba(255, 255, 255, 0.2);
+					}
+				}
+			}
+			#mob {
+				.ant .mobinfo {
+					position: absolute;
+					top: -100%;
+					left: -100%;
+					width: 300%;
+					height: 300%;
+					color: rgba(255, 255, 255, 0.158);
+					// background-color: rgb(221, 13, 13);
+					display: flex;
+					flex-direction: column;
+					justify-content: flex-start;
+					align-items: flex-start;
+					span {
+						display: none;
+					}
+					span.xpspan {
+						position: absolute;
+						top: 0;
+						right: 0;
+						// background-color: khaki;
+					}
+					span.posspan {
+						position: absolute;
+						bottom: 0;
+						width: 100%;
+						text-align: left;
+						// background-color: khaki;
+					}
+					span.namespan {
+						display: initial;
+						position: absolute;
+						bottom: 0;
+						width: 100%;
+						text-align: center;
+						// background-color: khaki;
+					}
+					&:hover {
+						span {
+							display: initial;
+						}
+						position: absolute;
+						content: "!";
+						position: absolute;
+						top: -40px;
+						left: 100%;
+						width: 80px;
+						height: 40px;
+						border-radius: 5px;
+						background-color: rgba(255, 255, 255, 0.2);
+						// background-image: url(../img/flag.svg);
+						// background-size: cover;
+						// background-repeat: no-repeat;
+						z-index: +1;
+						// background: rgba(255, 0, 0, 0.3);
+						span.namespan {
+							text-align: right;
+							// background-color: khaki;
+						}
 					}
 				}
 			}

@@ -13,8 +13,9 @@ class AntAnimator {
 		this.antsToDelete = []
 		this.antsToRecenter = []
 		this.CurrentMaxKills = 0;
-		// playGroundSize = { 'w': 640, 'h': 320 };
-		// playGroundSize = { 'w': 1280, 'h': 640 };
+		// playGroundSize = { 'w': 640, 'h': 320 }; //tweak
+		// playGroundSize = { 'w': 1280, 'h': 640 }; //tweak
+		// playGroundSize = { 'w': 400, 'h': 400 }; //tweak
 		playGround = document.getElementById('playground')
 		playGround.style.width = playGroundSize.w + px
 		playGround.style.height = playGroundSize.h + px
@@ -312,6 +313,10 @@ class AntAnimator {
 			posspan.className = "posspan"
 			posspan.textContent = (ant.overlap[0] === true ? "1" : "0") + "," + (ant.overlap[1] === true ? "1" : "0")
 			mobinfo.appendChild(posspan)
+			let namespan = document.createElement('span')
+			namespan.className = "namespan"
+			namespan.textContent = ant.name
+			mobinfo.appendChild(namespan)
 
 			let xpspan = document.createElement('span')
 			xpspan.className = "xpspan"
