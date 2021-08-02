@@ -221,7 +221,6 @@ class AntAnimator {
 		}
 	}
 	set_outlined() {
-		console.log('outlined', outLinedBool)
 		if (outLinedBool === true) {
 			outlined.textContent = "NoOutline"
 			mobGround.classList.remove('outlined')
@@ -233,7 +232,6 @@ class AntAnimator {
 			outlined.classList.add('active')
 			outLinedBool = true;
 		}
-		console.log('outlined', outLined)
 	}
 	addMobToDeletation(idx) {
 		this.antsToDelete.push(idx)
