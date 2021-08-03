@@ -3,12 +3,11 @@ class Ants {
 	constructor() {
 		// local Datas
 		this.maxAnts = 60;
-		this.mobdivContent = "i";
+		this.mobdivContent = " ";
 		this.allAnts = [];
 		// -----------------------------
 		this.immat = 0 // unique ant num
 	}
-	// this.Ants.addAnt(pDatas.name, pDatas.pos, pDatas.ia, playerid, 180, false, false)
 	addAnt(name, pos = false, ia = true, playerid = false, direction = false) {
 
 		if (this.allAnts.length < this.maxAnts) {
@@ -25,66 +24,66 @@ class Ants {
 	}
 	appendAntDiv() {
 		// mob info div
+		let character = this.allAnts[this.allAnts.length - 1]
 		let mobinfo = document.createElement('div');
 		mobinfo.className = "mobinfo"
 		// // Ant range0 Div
 		// let antRange0 = document.createElement('div');
-		// let range0Size = (this.allAnts[this.allAnts.length - 1].size * 1.5)
+		// let range0Size = (character.size * 1.5)
 		// antRange0.style.width = range0Size + px
 		// antRange0.style.height = range0Size + px
 		// // Ant antRange0 centering
-		// antRange0.style.left = "-" + ((range0Size / 2) - (this.allAnts[this.allAnts.length - 1].size) / 2) + px
-		// antRange0.style.top = "-" + ((range0Size / 2) - (this.allAnts[this.allAnts.length - 1].size / 2)) + px
+		// antRange0.style.left = "-" + ((range0Size / 2) - (character.size) / 2) + px
+		// antRange0.style.top = "-" + ((range0Size / 2) - (character.size / 2)) + px
 
-		// antRange0.style.backgroundColor = this.allAnts[this.allAnts.length - 1].colors[1] + 20 // HEX #
+		// antRange0.style.backgroundColor = character.colors[1] + 20 // HEX #
 		// antRange0.classList.add('rangeself')
 
 		// Ant rangeA Div
 		let antRangeA = document.createElement('div');
-		let rangeASize = this.allAnts[this.allAnts.length - 1].size * this.allAnts[this.allAnts.length - 1].aSize
+		let rangeASize = character.size * character.aSize
 		antRangeA.style.width = rangeASize + px
 		antRangeA.style.height = rangeASize + px
 
 		// Ant rangeA centering
-		antRangeA.style.left = "-" + ((rangeASize / 2) - (this.allAnts[this.allAnts.length - 1].size) / 2) + px
-		antRangeA.style.top = "-" + ((rangeASize / 2) - (this.allAnts[this.allAnts.length - 1].size / 2)) + px
-		//antRangeA.style.backgroundColor = "#00000020"//this.allAnts[this.allAnts.length - 1].colors[1] + "15" // rgba
+		antRangeA.style.left = "-" + ((rangeASize / 2) - (character.size) / 2) + px
+		antRangeA.style.top = "-" + ((rangeASize / 2) - (character.size / 2)) + px
+		//antRangeA.style.backgroundColor = "#00000020"//character.colors[1] + "15" // rgba
 		antRangeA.classList.add('rangea')
 		// Ant visual
 		let newMobVisual = document.createElement('div');
-		// newMobVisual.id = "visual-" + this.allAnts[this.allAnts.length - 1].num
+		// newMobVisual.id = "visual-" + character.num
 		newMobVisual.classList.add('visual')
 		// newMobVisual.style.top = 0
 		// newMobVisual.style.left = 0
-		newMobVisual.style.width = this.allAnts[this.allAnts.length - 1].size + px
-		newMobVisual.style.height = this.allAnts[this.allAnts.length - 1].size + px
+		newMobVisual.style.width = character.size + px
+		newMobVisual.style.height = character.size + px
 		newMobVisual.style.backgroundImage = 'url("assets/img/' +
-			(this.allAnts[this.allAnts.length - 1].colors[1] === '#000000' ? 'ladybug_black.svg' : 'ladybug_white.svg') +
+			(character.colors[1] === '#000000' ? 'ladybug_black.svg' : 'ladybug_white.svg') +
 			'")'
-		newMobVisual.style.backgroundColor = this.allAnts[this.allAnts.length - 1].colors[0]
+		newMobVisual.style.backgroundColor = character.colors[0]
 		newMobVisual.textContent = this.mobdivContent
 		// newMobVisual.appendChild(antRangeA)
 		// Ant Div
 		let newMobDiv = document.createElement('div');
-		newMobDiv.id = "ant-" + this.allAnts[this.allAnts.length - 1].num
-		newMobDiv.setAttribute("data-name", this.allAnts[this.allAnts.length - 1].name)
-		newMobDiv.style.top = this.allAnts[this.allAnts.length - 1].y + px
-		newMobDiv.style.left = (this.allAnts[this.allAnts.length - 1].x) + px
-		newMobDiv.style.maxWidth = this.allAnts[this.allAnts.length - 1].size + px
-		newMobDiv.style.maxHeight = this.allAnts[this.allAnts.length - 1].size + px
-		newMobDiv.style.width = this.allAnts[this.allAnts.length - 1].size + px
-		newMobDiv.style.height = this.allAnts[this.allAnts.length - 1].size + px
-		newMobDiv.className = this.allAnts[this.allAnts.length - 1].classname
-		// newMobDiv.style.backgroundColor = this.allAnts[this.allAnts.length - 1].colors[0]
+		newMobDiv.id = character.type + "-" + character.num
+		newMobDiv.setAttribute("data-name", character.name)
+		newMobDiv.style.top = character.y + px
+		newMobDiv.style.left = (character.x) + px
+		newMobDiv.style.maxWidth = character.size + px
+		newMobDiv.style.maxHeight = character.size + px
+		newMobDiv.style.width = character.size + px
+		newMobDiv.style.height = character.size + px
+		newMobDiv.className = character.classname
+		// newMobDiv.style.backgroundColor = character.colors[0]
 		newMobDiv.appendChild(antRangeA)
 		// newMobDiv.appendChild(antRange0)
 		newMobDiv.appendChild(newMobVisual)
 		newMobDiv.appendChild(mobinfo)
 		// append
 		document.getElementById("mob").appendChild(newMobDiv)
-		console.log('xEND ADD DIV appendChild xxxx')
 	}
-	get_Ant(name, pos = false, ia = true, playerid = false, direction = false, size = 20, hp = 100, velocity = 1, delay = 10, aSize = 3) {
+	get_Ant(name, pos = false, ia = true, playerid = false, direction = false, size = 35, hp = 100, velocity = 2, delay = 10, aSize = 3) {
 
 		// centered position
 		pos = (pos ? pos : [aleaEntreBornes(1, playGroundSize.w - size), aleaEntreBornes(1, playGroundSize.h - size)])
@@ -92,6 +91,7 @@ class Ants {
 			"num": this.immat,
 			"ia": ia,
 			"name": name,
+			"type": (!ia ? 'player' : 'ant'),
 			"size": size,
 			"aSize": aSize, // range a
 			"hp": hp,

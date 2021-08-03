@@ -24,8 +24,6 @@ body #fullscreen {
           flex-direction: column;
   background: #804040;
   overflow: hidden;
-  -webkit-perspective: 200px;
-          perspective: 200px;
 }
 
 body #fullscreen #playground {
@@ -40,13 +38,15 @@ body #fullscreen #playground {
   transition: 10s transform ease-in-out, 10s -webkit-transform ease-in-out;
   -webkit-transform-origin: bottom;
           transform-origin: bottom;
-  -webkit-transform: rotateX(10deg) translate3d(0, -10%, -40px);
-  transform: rotateX(10deg) translate3d(0, -10%, -40px);
+  -webkit-transform: rotateX(10deg);
+  transform: rotateX(10deg);
   outline: 5px solid rgba(172, 255, 47, 0.116);
-  background-image: url(../img/grille_20px.png);
 }
 
 body #fullscreen #playground #mob {
+  background-image: url(../img/grille_20px.png);
+  background-position: left top;
+  background-repeat: repeat;
   position: relative;
   height: 100%;
   width: 100%;
@@ -83,7 +83,7 @@ body #fullscreen #playground #mob .ant.overa .rangea {
 
 body #fullscreen #playground #mob .ant.player .rangea {
   outline: 2px dotted rgba(255, 255, 255, 0.1);
-  background-color: rgba(255, 255, 255, 0.03);
+  background-color: rgba(255, 255, 255, 0.103);
 }
 
 body #fullscreen #playground #mob .ant.player.overa .rangea {
@@ -116,17 +116,15 @@ body #fullscreen #playground #mob .ant .mobinfo {
           align-items: flex-start;
 }
 
-body #fullscreen #playground #mob .ant .mobinfo span {
-  display: none;
-}
-
 body #fullscreen #playground #mob .ant .mobinfo span.xpspan {
   position: absolute;
   top: 0;
   right: 0;
+  color: rgba(21, 255, 0, 0.562);
 }
 
 body #fullscreen #playground #mob .ant .mobinfo span.posspan {
+  display: none;
   position: absolute;
   bottom: 0;
   width: 100%;
@@ -141,7 +139,7 @@ body #fullscreen #playground #mob .ant .mobinfo span.namespan {
   text-align: center;
 }
 
-body #fullscreen #playground #mob .ant .mobinfo:hover {
+body #fullscreen #playground #mob .ant:hover .mobinfo {
   position: absolute;
   content: "!";
   position: absolute;
@@ -154,18 +152,70 @@ body #fullscreen #playground #mob .ant .mobinfo:hover {
   z-index: +1;
 }
 
-body #fullscreen #playground #mob .ant .mobinfo:hover span {
+body #fullscreen #playground #mob .ant:hover .mobinfo span {
   display: initial;
 }
 
-body #fullscreen #playground #mob .ant .mobinfo:hover span.namespan {
+body #fullscreen #playground #mob .ant:hover .mobinfo span.namespan {
   text-align: right;
+}
+
+body #fullscreen.ddd {
+  -webkit-perspective: 100vh;
+          perspective: 100vh;
+}
+
+body #fullscreen.ddd #playground {
+  -webkit-transform-origin: bottom;
+          transform-origin: bottom;
+  -webkit-transform: rotateX(10deg);
+  transform: rotateX(10deg);
+  outline: 5px solid rgba(172, 255, 47, 0.116);
+  -webkit-transition: 10s -webkit-transform ease-in-out;
+  transition: 10s -webkit-transform ease-in-out;
+  transition: 10s transform ease-in-out;
+  transition: 10s transform ease-in-out, 10s -webkit-transform ease-in-out;
 }
 
 body #fullscreen #info {
   position: absolute;
-  bottom: 1rem;
-  left: 1rem;
+  bottom: 0.5rem;
+  left: 0.5rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+}
+
+body #fullscreen #info * {
+  color: black;
+}
+
+body #fullscreen #info .github,
+body #fullscreen #info .codepen {
+  width: 24px;
+  height: 24px;
+  min-width: 24px;
+  min-height: 24px;
+  background-size: cover;
+  border-radius: 50%;
+}
+
+body #fullscreen #info .github {
+  background-image: url(../rs/github.png);
+}
+
+body #fullscreen #info .codepen {
+  background-image: url(../rs/codepen.png);
+  margin-right: 0.5rem;
+}
+
+body #fullscreen #info a {
+  background-color: rgba(255, 255, 255, 0.192);
+  border-radius: 0.5rem;
 }
 
 body #fullscreen #buttons,
@@ -241,5 +291,63 @@ body #fullscreen #buttons .console-item {
 
 body #fullscreen #buttons .console-item.active {
   background-color: rgba(30, 255, 0, 0.685);
+}
+
+body #fullscreen #splashscreen {
+  display: none;
+  position: absolute;
+  width: 40%;
+  height: 40%;
+  border-radius: 0.5rem;
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  background-color: rgba(255, 255, 255, 0.452);
+  border: 2px solid white;
+  z-index: 2000;
+}
+
+body #fullscreen #splashscreen.active {
+  display: initial;
+}
+
+body #fullscreen #splashgameover {
+  position: absolute;
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
+  height: -webkit-max-content;
+  height: -moz-max-content;
+  height: max-content;
+  border-radius: 0.5rem;
+  padding: 0.5rem;
+  left: 50%;
+  bottom: 10%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  background-color: rgba(255, 255, 255, 0.452);
+  border: 2px solid white;
+  z-index: 2001;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+}
+
+body #fullscreen #splashgameover.active {
+  display: initial;
+}
+
+body #fullscreen #splashgameover .p0,
+body #fullscreen #splashgameover .p1 {
+  border-radius: 0.5rem;
+  margin: 0.5rem;
+  border-radius: 0.5rem;
+  border: 2px solid rgba(255, 255, 255, 0.281);
+  padding: 0.5rem;
 }
 /*# sourceMappingURL=css.css.map */

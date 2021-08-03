@@ -6,9 +6,10 @@ class AntAnimator {
 		this.maxx = 0
 		this.ratio = 1
 		// -----------------------------
-		this.playersList = [];
+		this.playersIdList = [];
 		this.playersDatas = [];
-		this.maxPlayer = 1;
+		this.maxPlayer = 2;
+		this.CurrentPlayers = 0;
 		// -----------------------------
 		this.antsToDelete = []
 		this.antsToRecenter = []
@@ -21,53 +22,81 @@ class AntAnimator {
 		playGround.style.height = playGroundSize.h + px
 		resizePlayGround()
 		this.Ants = new Ants(); // Ants ref only
+		this.splashScreen = false
+		this.Pause = false
 		this.GameOn = false
 		this.GameOver = false
+		this.set_SplashScreen()
 
 	}
-	startGame() {
+	setPause(playerid) {
+		this.Pause = this.Pause ? false : true
+		this.set_SplashScreen()
+	}
+	set_SplashScreen() {
+		if (this.Pause) {
+			splashscreen.classList.add('active')
+
+		} else {
+			splashscreen.classList.remove('active')
+		}
+	}
+	startGame(playerId) {
 		if (!this.GameOn && !this.GameOver) {
+			if (respawn) {
+				for (let i = 0; i < startSpawn; i++) {
+					this.Ants.addAnt("amy" + i)
+				}
+			}
 			this.GameOn = true
 			this.GameOver = false
 			setInterval(this.renderScene, interval)
 		}
-		this.addPlayer()
+		this.addPlayer(playerId)
 	}
-	addPlayer() {
+	addPlayer(playerId) {
+		console.log('trying generation of player-' + playerId)
+		if (!this.playersIdList[playerId]) {
+			this.splashScreen = false
+			this.set_SplashScreen()
 
-		if (this.GameOn && !this.GameOver) {
-			console.log('---' + this.playersList.length)
-			let playerid = this.playersList.length
-			if (playerid < this.maxPlayer) {
+
+			if (this.GameOn && !this.GameOver) {
+				// if (playerId <= this.maxPlayer - 1) {
 				let pDatas = {
-					name: "player-" + playerid,
+					immat: this.Ants.immat,
+					name: "player-" + playerId,
 					pos: [parseInt((playGroundSize.w) / 2), parseInt((playGroundSize.h) / 2)],
-					ia: false,
-					divid: 'ant-' + this.Ants.immat,
-					compass: [0, 0, 0, 0] // up,right,down,left dir
+					ia: false, // this not a real mob with ia
+					//divid: 'ant-' + this.Ants.immat, // not used
+					compass: [0, 0, 0, 0], // up,right,down,left dir
+					stacked: []
 				}
 				//--
-				this.playersList[playerid] = this.Ants.immat
+				this.playersIdList[playerId] = this.Ants.immat
 				this.playersDatas[this.Ants.immat] = pDatas
-				this.Ants.addAnt(pDatas.name, pDatas.pos, pDatas.ia, playerid, 0)
+				this.Ants.addAnt(pDatas.name, pDatas.pos, pDatas.ia, playerId, 0)
+				console.log(this.playersIdList)
+				console.log(this.playersDatas)
+				// }
 			}
 			else {
-				console.log('to many new players', this.playersDatas)
+				console.log('game not started')
 			}
 		}
 		else {
-			console.log('game not started')
+			console.log('Player-' + playerId + ' allready existe !!!')
 		}
 	}
-	niceDegres = (actualdegres, step, type) => {
+	getNiceDegrees = (actualdegres, step, type) => {
 		if (type === 'left') {
 			return (actualdegres - step) < 0 ? 360 - actualdegres - step : actualdegres - step
 		}
 		else {
-			return (actualdegres + step) > 360 ? actualdegres + step - 360 : actualdegres + step
+			return (actualdegres + step) >= 360 ? actualdegres + step - 360 : actualdegres + step
 		}
 	}
-	niceAltitudes = (actualaltitudes, step, type) => {
+	getniceAltitudes = (actualaltitudes, step, type) => {
 		if (type === 'up') {
 			return (actualaltitudes + step) > 10 ? 10 : actualaltitudes + step
 		}
@@ -105,13 +134,19 @@ class AntAnimator {
 				}
 				else {
 					// ant.state[0] = "walking"
-					ant.delay[0] = 0;
-					let compass = this.playersDatas[this.playersList[ant.playerid]].compass // [up,right,down,left]
-					if (compass[1] === 1) { compass[1] = 0, ant.direction = this.niceDegres(ant.direction, ant.agility, 'right') } // right
-					if (compass[3] === 1) { compass[3] = 0, ant.direction = this.niceDegres(ant.direction, ant.agility, 'left') } // left
-					if (compass[0] === 1) { compass[0] = 0, ant.direction = ant.direction - ant.agility } // up
-					if (compass[2] === 1) { compass[2] = 0, ant.direction = ant.direction + ant.agility } // down
-					compass = [0, 0, 0, 0]
+					// console.log('ant.playerid ' + ant.playerid)
+					if (this.playersIdList[ant.playerid] && this.playersDatas[this.playersIdList[ant.playerid]]) {
+						// console.log(this.playersIdList)
+						// console.log(this.playersDatas)
+						// console.log(this.playersIdList[ant.playerid])
+						ant.delay[0] = 0;
+						let compass = this.playersDatas[ant.num].compass // [up,right,down,left]
+						if (compass[1] === 1) { compass[1] = 0, ant.direction = this.getNiceDegrees(ant.direction, ant.agility, 'right') } // right
+						if (compass[3] === 1) { compass[3] = 0, ant.direction = this.getNiceDegrees(ant.direction, ant.agility, 'left') } // left
+						// if (compass[0] === 1) { compass[0] = 0, ant.direction = ant.direction - ant.agility } // up
+						// if (compass[2] === 1) { compass[2] = 0, ant.direction = ant.direction + ant.agility } // down
+						compass = [0, 0, 0, 0]
+					}
 				}
 			}
 			// calculating ratio (0 to 1) to get a direction
@@ -119,22 +154,27 @@ class AntAnimator {
 				{
 					// tansforming degre in pourcentage...wtf idea ???
 					let ratioDir = parseInt(ant.direction / 360 * 1000) / 1000
+					let speed = ant.velocity
+
 					// north
-					if (ratioDir >= 0 && ratioDir <= 0.0625) { ant.boussole = "N"; ant.y -= ant.velocity }
+					if (ratioDir >= 0 && ratioDir <= 0.0625) { ant.boussole = "N"; ant.y -= speed }
 					// north est
-					if (ratioDir > 0.0625 && ratioDir <= 0.1875) { ant.boussole = "NE"; ant.x += ant.velocity; ant.y -= ant.velocity }
+					if (ratioDir > 0.0625 && ratioDir <= 0.1875) { ant.boussole = "NE"; ant.x += speed / 2; ant.y -= speed / 2 }
 					// est
-					if (ratioDir > 0.1875 && ratioDir <= 0.3125) { ant.boussole = "E"; ant.x += ant.velocity }
+					if (ratioDir > 0.1875 && ratioDir <= 0.3125) { ant.boussole = "E"; ant.x += speed }
 					//south est
-					if (ratioDir > 0.3125 && ratioDir <= 0.4375) { ant.boussole = "SE"; ant.x += ant.velocity; ant.y += ant.velocity }
+					if (ratioDir > 0.3125 && ratioDir <= 0.4375) {
+						ant.
+							boussole = "SE"; ant.x += speed / 2; ant.y += speed / 2
+					}
 					// south
-					if (ratioDir > 0.4375 && ratioDir <= 0.5625) { ant.boussole = "S"; ant.y += ant.velocity }
+					if (ratioDir > 0.4375 && ratioDir <= 0.5625) { ant.boussole = "S"; ant.y += speed }
 					// south west
-					if (ratioDir > 0.5625 && ratioDir <= 0.6875) { ant.boussole = "SW"; ant.x -= ant.velocity; ant.y += ant.velocity }
+					if (ratioDir > 0.5625 && ratioDir <= 0.6875) { ant.boussole = "SW"; ant.x -= speed / 2; ant.y += speed / 2 }
 					// west
-					if (ratioDir > 0.6875 && ratioDir <= 0.8125) { ant.boussole = "W"; ant.x -= ant.velocity; }
+					if (ratioDir > 0.6875 && ratioDir <= 0.8125) { ant.boussole = "W"; ant.x -= speed; }
 					// north west
-					if (ratioDir > 0.8125 && ratioDir <= 1) { ant.boussole = "NW"; ant.x -= ant.velocity; ant.y -= ant.velocity }
+					if (ratioDir > 0.8125 && ratioDir <= 1) { ant.boussole = "NW"; ant.x -= speed / 2; ant.y -= speed / 2 }
 				}
 
 				// is the mob running out playground
@@ -156,14 +196,11 @@ class AntAnimator {
 
 			// delete and respawn if is the mob stat is out
 			if (ant.state[3] === "dead") {
-				if (ant.ia) {
-					this.addMobToDeletation(currentMobIdx)
+				if (!ant.ia) {
+					console.log(ant.type + ' ' + ant.playerid + 'dead')
+					console.log('ant ' + ant.num + 'dead')
 				}
-				else {
-					console.log('player ' + ant.playerid + 'dead')
-					this.addMobToDeletation(currentMobIdx)
-					this.addPlayerToDeletation(ant.playerid, ant.num)
-				}
+				this.addMobToDeletation(currentMobIdx)
 			}
 			// recenter if is the mob stat is out
 			if (ant.state[1] === "recenter") {
@@ -225,38 +262,41 @@ class AntAnimator {
 		if (outLinedBool === true) {
 			outlined.textContent = "NoOutline"
 			mobGround.classList.remove('outlined')
-			outlined.classList.remove('active')
+			isoutlined.classList.remove('active')
 			outLinedBool = false;
 		} else {
 			outlined.textContent = "Outlined"
 			mobGround.classList.add('outlined')
-			outlined.classList.add('active')
+			isoutlined.classList.add('active')
 			outLinedBool = true;
 		}
 	}
-	addMobToDeletation(idx) {
-		this.antsToDelete.push(idx)
+	// mobs traitements
+	addMobToDeletation(immat) {
+		this.antsToDelete.push(immat)
 		nbDeadAnts++
 	}
-	addPlayerToDeletation(idx, num) {
-		console.log(this.playersDatas)
-		console.log(this.playersList)
-		this.playersDatas.splice(num, 1)
-		this.playersList.splice(idx, 1)
-		console.log(this.playersDatas)
-		console.log(this.playersList)
+	DeletePlayer(immat) {
+		console.log('DeletePlayer:' + this.Ants.allAnts[immat])
+		this.playersDatas[immat] = false
+		this.playersIdList[this.Ants.allAnts[immat].playerid] = false
 	}
-	addMobToRecentering(idx) {
-		this.antsToRecenter.push(idx)
+	addMobToRecentering(immat) {
+		this.antsToRecenter.push(immat)
 	}
 	deleteMobListe() {
 		if (this.antsToDelete.length > 0) {
 			this.antsToDelete.sort()
 			this.antsToDelete.reverse()
 		}
-		this.antsToDelete.forEach(num => {
-			document.getElementById("ant-" + this.Ants.allAnts[num].num).remove()
-			this.Ants.allAnts.splice(num, 1)
+		this.antsToDelete.forEach(immat => {
+			document.getElementById(this.Ants.allAnts[immat].type + "-" + this.Ants.allAnts[immat].num).remove()
+			if (!this.Ants.allAnts[immat].ia) {
+
+				// delete player
+				this.DeletePlayer(immat)
+			}
+			this.Ants.allAnts.splice(immat, 1)
 			// if (respawn) {
 			// 	this.Ants.addAnt("amy")
 			// 	nbRespawnAnts++
@@ -264,9 +304,10 @@ class AntAnimator {
 		})
 		this.antsToDelete = []
 	}
+	// mobs traitements
 	resizeMobs(type, mob) {
-		mob.size = mob.size * 1.1
-		let currentMob = document.getElementById('ant-' + mob.num);
+		mob.size = mob.size < 50 ? mob.size * 1.02 : 50
+		let currentMob = document.getElementById(mob.type + "-" + mob.num);
 		currentMob.style.width = (mob.size) + px
 		currentMob.style.height = (mob.size) + px
 		currentMob.style.maxWidth = (mob.size) + px
@@ -283,7 +324,8 @@ class AntAnimator {
 	}
 	redrawAllMobs = () => {
 		this.Ants.allAnts.forEach(ant => {
-			let currentMob = document.getElementById('ant-' + ant.num);
+			console.log(ant.type + "-" + ant.num)
+			let currentMob = document.getElementById(ant.type + "-" + ant.num);
 
 			let elem = currentMob.querySelector(".mobinfo");
 			elem.parentNode.removeChild(elem)
@@ -320,7 +362,7 @@ class AntAnimator {
 
 			let xpspan = document.createElement('span')
 			xpspan.className = "xpspan"
-			xpspan.textContent = "xp:" + ant.kills
+			xpspan.textContent = this.getstars(ant.kills)
 			mobinfo.appendChild(xpspan)
 
 			currentMob.appendChild(mobinfo)
@@ -398,27 +440,41 @@ class AntAnimator {
 			}
 		})
 	}
-	pause() { pause = pause ? false : true }
-	renderScene = () => {
-		this.redrawAllMobs()
-		if (!pause && this.GameOn) {
-			this.mobsIA()
+	getstars = (bnstars) => {
+		let a = ""
+		for (let ii = 0; ii < bnstars; ii++) {
+			a += "⭐" //♥
+		}
+		return a
+	}
+	PlayGoUp = (idx) => {
+		if (this.playersDatas[this.playersIdList[idx]]) {
+			this.playersDatas[this.playersIdList[idx]].compass[0] = 1
+			// console.log(this.playersDatas[this.playersIdList[idx]].compass)
 		}
 	}
-	PlayGoTop = (idx) => {
-		this.playersDatas[this.playersList[idx]].compass[0] = 1
-		// console.log(this.playersDatas[this.playersList[idx]].compass)
-	}
 	PlayGoRight = (idx) => {
-		this.playersDatas[this.playersList[idx]].compass[1] = 1
-		// console.log(this.playersDatas[this.playersList[idx]].compass)
+		if (this.playersDatas[this.playersIdList[idx]]) {
+			this.playersDatas[this.playersIdList[idx]].compass[1] = 1
+			// console.log(this.playersDatas[this.playersIdList[idx]].compass)
+		}
 	}
 	PlayGoDown = (idx) => {
-		this.playersDatas[this.playersList[idx]].compass[2] = 1
-		// console.log(this.playersDatas[this.playersList[idx]].compass)
+		if (this.playersDatas[this.playersIdList[idx]]) {
+			this.playersDatas[this.playersIdList[idx]].compass[2] = 1
+			// console.log(this.playersDatas[this.playersIdList[idx]].compass)
+		}
 	}
 	PlayGoLeft = (idx) => {
-		this.playersDatas[this.playersList[idx]].compass[3] = 1
-		// console.log(this.playersDatas[this.playersList[idx]].compass)
+		if (this.playersDatas[this.playersIdList[idx]]) {
+			this.playersDatas[this.playersIdList[idx]].compass[3] = 1
+			// console.log(this.playersDatas[this.playersIdList[idx]].compass)
+		}
+	}
+	renderScene = () => {
+		if (!this.Pause && this.GameOn && this.playersIdList.length > 0) {
+			this.redrawAllMobs()
+			this.mobsIA()
+		}
 	}
 }

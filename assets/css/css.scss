@@ -16,7 +16,6 @@ body {
 		flex-direction: column;
 		background: rgb(128, 64, 64);
 		overflow: hidden;
-		perspective: 200px;
 		#playground {
 			position: absolute;
 			background: rgb(53, 53, 53);
@@ -27,11 +26,16 @@ body {
 			// transform-style: preserve-3d;
 			transition: 10s transform ease-in-out;
 			transform-origin: bottom;
-			-webkit-transform: rotateX(10deg) translate3d(0, -10%, -40px);
-			transform: rotateX(10deg) translate3d(0, -10%, -40px);
+			-webkit-transform: rotateX(10deg); // translate3d(0, 0, -40px);
+			transform: rotateX(10deg); // translate3d(0, 0, -40px);
 			outline: 5px solid rgba(172, 255, 47, 0.116);
-			background-image: url(../img/grille_20px.png);
 			#mob {
+				background-image: url(../img/grille_20px.png);
+				background-position: left top;
+				background-repeat: repeat;
+				// background-image: url(../img/grille_20px.png), url(../img/logo.svg);
+				// background-position: left top, left top;
+				// background-repeat: repeat, no-repeat;
 				// stringCss = stringCss + '-webkit-transform-style: preserve-3d;'
 				// stringCss = stringCss + 'transform-style: preserve-3d;'
 				position: relative;
@@ -48,6 +52,8 @@ body {
 						position: absolute;
 						border-radius: 50%;
 						// outline: 3px dotted rgba(255, 255, 255, 0.2);
+					}
+					.rangea {
 					}
 					&.overself {
 						.rangeself {
@@ -73,7 +79,7 @@ body {
 						// filter: invert(0.5);
 						.rangea {
 							outline: 2px dotted rgba(255, 255, 255, 0.1);
-							background-color: rgba(255, 255, 255, 0.03);
+							background-color: rgba(255, 255, 255, 0.103);
 						}
 						&.overa {
 							.rangea {
@@ -90,72 +96,117 @@ body {
 				}
 			}
 			#mob {
-				.ant .mobinfo {
-					position: absolute;
-					top: -100%;
-					left: -100%;
-					width: 300%;
-					height: 300%;
-					color: rgba(255, 255, 255, 0.158);
-					// background-color: rgb(221, 13, 13);
-					display: flex;
-					flex-direction: column;
-					justify-content: flex-start;
-					align-items: flex-start;
-					span {
-						display: none;
-					}
-					span.xpspan {
+				.ant {
+					.mobinfo {
 						position: absolute;
-						top: 0;
-						right: 0;
-						// background-color: khaki;
-					}
-					span.posspan {
-						position: absolute;
-						bottom: 0;
-						width: 100%;
-						text-align: left;
-						// background-color: khaki;
-					}
-					span.namespan {
-						display: initial;
-						position: absolute;
-						bottom: 0;
-						width: 100%;
-						text-align: center;
-						// background-color: khaki;
+						top: -100%;
+						left: -100%;
+						width: 300%;
+						height: 300%;
+						color: rgba(255, 255, 255, 0.158);
+						// background-color: rgb(221, 13, 13);
+						display: flex;
+						flex-direction: column;
+						justify-content: flex-start;
+						align-items: flex-start;
+						span {
+							// display: none;
+						}
+						span.xpspan {
+							position: absolute;
+							top: 0;
+							right: 0;
+							color: rgba(21, 255, 0, 0.562);
+							// background-color: khaki;
+						}
+						span.posspan {
+							display: none;
+							position: absolute;
+							bottom: 0;
+							width: 100%;
+							text-align: left;
+							// background-color: khaki;
+						}
+						span.namespan {
+							display: initial;
+							position: absolute;
+							bottom: 0;
+							width: 100%;
+							text-align: center;
+							// background-color: khaki;
+						}
 					}
 					&:hover {
-						span {
-							display: initial;
-						}
-						position: absolute;
-						content: "!";
-						position: absolute;
-						top: -40px;
-						left: 100%;
-						width: 80px;
-						height: 40px;
-						border-radius: 5px;
-						background-color: rgba(255, 255, 255, 0.2);
-						// background-image: url(../img/flag.svg);
-						// background-size: cover;
-						// background-repeat: no-repeat;
-						z-index: +1;
-						// background: rgba(255, 0, 0, 0.3);
-						span.namespan {
-							text-align: right;
-							// background-color: khaki;
+						.mobinfo {
+							span {
+								display: initial;
+							}
+							position: absolute;
+							content: "!";
+							position: absolute;
+							top: -40px;
+							left: 100%;
+							width: 80px;
+							height: 40px;
+							border-radius: 5px;
+							background-color: rgba(255, 255, 255, 0.2);
+							// background-image: url(../img/flag.svg);
+							// background-size: cover;
+							// background-repeat: no-repeat;
+							z-index: +1;
+							// background: rgba(255, 0, 0, 0.3);
+							span.namespan {
+								text-align: right;
+								// background-color: khaki;
+							}
 						}
 					}
 				}
 			}
 		}
+
+		&.ddd {
+			perspective: 100vh;
+			#playground {
+				// -webkit-transform-style: preserve-3d;
+				// transform-style: preserve-3d;
+				transform-origin: bottom;
+				-webkit-transform: rotateX(10deg); // translate3d(0, 0, -40px);
+				transform: rotateX(10deg); // translate3d(0, 0, -40px);
+				outline: 5px solid rgba(172, 255, 47, 0.116);
+				transition: 10s transform ease-in-out;
+			}
+		}
 		#info {
 			position: absolute;
-			bottom: 1rem;
-			left: 1rem;
+			bottom: 0.5rem;
+			left: 0.5rem;
+			display: flex;
+			flex-direction: row;
+			* {
+				color: black;
+			}
+			.github,
+			.codepen {
+				width: 24px;
+				height: 24px;
+				min-width: 24px;
+				min-height: 24px;
+				background-size: cover;
+				border-radius: 50%;
+			}
+
+			.github {
+				background-image: url(../rs/github.png);
+			}
+			.codepen {
+				background-image: url(../rs/codepen.png);
+				margin-right: 0.5rem;
+			}
+			a {
+				background-color: rgba(255, 255, 255, 0.192);
+				border-radius: 0.5rem;
+			}
 		}
 		#buttons,
 		#console {
@@ -202,6 +253,48 @@ body {
 				&.active {
 					background-color: rgba(30, 255, 0, 0.685);
 				}
+			}
+		}
+		#splashscreen {
+			display: none;
+			position: absolute;
+			width: 40%;
+			height: 40%;
+			border-radius: 0.5rem;
+			left: 50%;
+			top: 50%;
+			transform: translate(-50%, -50%);
+			background-color: rgba(255, 255, 255, 0.452);
+			border: 2px solid white;
+			z-index: 2000;
+			&.active {
+				display: initial;
+			}
+		}
+		#splashgameover {
+			position: absolute;
+			width: max-content;
+			height: max-content;
+			border-radius: 0.5rem;
+			padding: 0.5rem;
+			left: 50%;
+			bottom: 10%;
+			transform: translate(-50%, -50%);
+			background-color: rgba(255, 255, 255, 0.452);
+			border: 2px solid white;
+			z-index: 2001;
+			display: flex;
+			flex-direction: row;
+			&.active {
+				display: initial;
+			}
+			.p0,
+			.p1 {
+				border-radius: 0.5rem;
+				margin: 0.5rem;
+				border-radius: 0.5rem;
+				border: 2px solid rgba(255, 255, 255, 0.281);
+				padding: 0.5rem;
 			}
 		}
 	}
