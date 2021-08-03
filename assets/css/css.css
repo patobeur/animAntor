@@ -120,7 +120,9 @@ body #fullscreen #playground #mob .ant .mobinfo span.xpspan {
   position: absolute;
   top: 0;
   right: 0;
+  font-size: 0.7rem;
   color: rgba(21, 255, 0, 0.562);
+  max-width: 1.4rem;
 }
 
 body #fullscreen #playground #mob .ant .mobinfo span.posspan {
@@ -293,7 +295,7 @@ body #fullscreen #buttons .console-item.active {
   background-color: rgba(30, 255, 0, 0.685);
 }
 
-body #fullscreen #splashscreen {
+body #splashscreen {
   display: none;
   position: absolute;
   width: 40%;
@@ -308,11 +310,83 @@ body #fullscreen #splashscreen {
   z-index: 2000;
 }
 
-body #fullscreen #splashscreen.active {
+body #splashscreen.active {
   display: initial;
 }
 
-body #fullscreen #splashgameover {
+body #splashplayer0,
+body #splashplayer1,
+body #splashplayer2,
+body #splashplayer3 {
+  position: absolute;
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
+  height: -webkit-max-content;
+  height: -moz-max-content;
+  height: max-content;
+  border-radius: 0.5rem;
+  left: 25%;
+  bottom: 10%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  background-color: rgba(255, 255, 255, 0.452);
+  border: 2px solid white;
+  z-index: 2000;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  text-align: center;
+}
+
+body #splashplayer0 .p0,
+body #splashplayer0 .p1,
+body #splashplayer1 .p0,
+body #splashplayer1 .p1,
+body #splashplayer2 .p0,
+body #splashplayer2 .p1,
+body #splashplayer3 .p0,
+body #splashplayer3 .p1 {
+  border-radius: 0.5rem;
+  margin: 0.5rem;
+  border-radius: 0.5rem;
+  border: 2px solid rgba(255, 255, 255, 0.281);
+  padding: 0.5rem;
+}
+
+body #splashplayer0.active,
+body #splashplayer1.active,
+body #splashplayer2.active,
+body #splashplayer3.active {
+  display: initial;
+}
+
+body #splashplayer1 {
+  left: 75%;
+}
+
+body #splashplayer2 {
+  bottom: 90%;
+  left: 75%;
+  -webkit-transform: rotateX(180deg) translate(-50%, 0);
+          transform: rotateX(180deg) translate(-50%, 0);
+}
+
+body #splashplayer3 {
+  bottom: 90%;
+  left: 25%;
+  -webkit-transform: rotateX(180deg) translate(-50%, 0);
+          transform: rotateX(180deg) translate(-50%, 0);
+}
+
+body #splashgameover {
   position: absolute;
   width: -webkit-max-content;
   width: -moz-max-content;
@@ -329,21 +403,17 @@ body #fullscreen #splashgameover {
   background-color: rgba(255, 255, 255, 0.452);
   border: 2px solid white;
   z-index: 2001;
+  display: none;
+}
+
+body #splashgameover.active {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: row;
-          flex-direction: row;
 }
 
-body #fullscreen #splashgameover.active {
-  display: initial;
-}
-
-body #fullscreen #splashgameover .p0,
-body #fullscreen #splashgameover .p1 {
+body #splashgameover .p0,
+body #splashgameover .p1 {
   border-radius: 0.5rem;
   margin: 0.5rem;
   border-radius: 0.5rem;

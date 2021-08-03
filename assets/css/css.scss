@@ -116,7 +116,9 @@ body {
 							position: absolute;
 							top: 0;
 							right: 0;
+							font-size: 0.7rem;
 							color: rgba(21, 255, 0, 0.562);
+							max-width: 1.4rem;
 							// background-color: khaki;
 						}
 						span.posspan {
@@ -255,47 +257,89 @@ body {
 				}
 			}
 		}
-		#splashscreen {
-			display: none;
-			position: absolute;
-			width: 40%;
-			height: 40%;
-			border-radius: 0.5rem;
-			left: 50%;
-			top: 50%;
-			transform: translate(-50%, -50%);
-			background-color: rgba(255, 255, 255, 0.452);
-			border: 2px solid white;
-			z-index: 2000;
-			&.active {
-				display: initial;
-			}
+	}
+	#splashscreen {
+		display: none;
+		position: absolute;
+		width: 40%;
+		height: 40%;
+		border-radius: 0.5rem;
+		left: 50%;
+		top: 50%;
+		transform: translate(-50%, -50%);
+		background-color: rgba(255, 255, 255, 0.452);
+		border: 2px solid white;
+		z-index: 2000;
+		&.active {
+			display: initial;
 		}
-		#splashgameover {
-			position: absolute;
-			width: max-content;
-			height: max-content;
+	}
+	#splashplayer0,
+	#splashplayer1,
+	#splashplayer2,
+	#splashplayer3 {
+		position: absolute;
+		width: max-content;
+		height: max-content;
+		border-radius: 0.5rem;
+		left: 25%;
+		bottom: 10%;
+		transform: translate(-50%, -50%);
+		background-color: rgba(255, 255, 255, 0.452);
+		border: 2px solid white;
+		z-index: 2000;
+		flex-direction: row;
+		justify-content: center;
+		align-items: center;
+		text-align: center;
+		.p0,
+		.p1 {
 			border-radius: 0.5rem;
+			margin: 0.5rem;
+			border-radius: 0.5rem;
+			border: 2px solid rgba(255, 255, 255, 0.281);
 			padding: 0.5rem;
-			left: 50%;
-			bottom: 10%;
-			transform: translate(-50%, -50%);
-			background-color: rgba(255, 255, 255, 0.452);
-			border: 2px solid white;
-			z-index: 2001;
+		}
+		&.active {
+			display: initial;
+		}
+	}
+	#splashplayer1 {
+		left: 75%;
+	}
+	#splashplayer2 {
+		bottom: 90%;
+		left: 75%;
+		transform: rotateX(180deg) translate(-50%, 0);
+	}
+	#splashplayer3 {
+		bottom: 90%;
+		left: 25%;
+		transform: rotateX(180deg) translate(-50%, 0);
+	}
+	#splashgameover {
+		position: absolute;
+		width: max-content;
+		height: max-content;
+		border-radius: 0.5rem;
+		padding: 0.5rem;
+		left: 50%;
+		bottom: 10%;
+		transform: translate(-50%, -50%);
+		background-color: rgba(255, 255, 255, 0.452);
+		border: 2px solid white;
+		z-index: 2001;
+		display: none;
+		&.active {
 			display: flex;
-			flex-direction: row;
-			&.active {
-				display: initial;
-			}
-			.p0,
-			.p1 {
-				border-radius: 0.5rem;
-				margin: 0.5rem;
-				border-radius: 0.5rem;
-				border: 2px solid rgba(255, 255, 255, 0.281);
-				padding: 0.5rem;
-			}
+		}
+		.p0,
+		.p1 {
+			border-radius: 0.5rem;
+			margin: 0.5rem;
+			border-radius: 0.5rem;
+			border: 2px solid rgba(255, 255, 255, 0.281);
+			padding: 0.5rem;
 		}
 	}
 }
