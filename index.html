@@ -6,12 +6,12 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<title>Ant Animator</title>
-		<link rel="icon" type="image/png" href="assets/img/antblack.png">
+		<link rel="icon" type="image/png" href="assets/img/ant_black.png">
 		<link rel='stylesheet' id='base-css' href='assets/css/css.css?ver=2' type='text/css' media='all' />
 	</head>
 
 	<body>
-		<div id="fullscreen" class="ddd">
+		<div id="fullscreen" class="notddd">
 			<div id="playground">
 				<div id="mob" class="outlined"></div>
 			</div>
@@ -26,43 +26,47 @@
 				</div>
 			</div>
 
-			<div id="splashscreen">
-				ESCAPE MODE: On<br>
-				Press [SpaceBar] to Play !<br>
-				Click playground for more ants.<br>
-				Left & Right arrows for directions.
-				<!-- ↥⇡⮉⇪⇑⭮♥♡☖☗♎⏫ -->
-				<div id="buttons">
-					<div id="isrespawning" class="console-item" title="Active Respawn or not !">
-						<div class="console-ico">⮉</div>
-						<div id="respawning">0</div>
-					</div>
-					<div id="isworldtype" class="console-item" title="Mirrored Or Closed World">
-						<div class="console-ico">↥👁️‍🗨️</div>
-						<div id="worldtype">Mirror</div>
-					</div>
-					<div id="isoutlined" class="console-item active" title="Outlines on/off">
-						<!-- 💫 -->
-						<div class="console-ico">📐</div>
-						<div id="outlined">Outlined</div>
-					</div>
+			<div id="escapescreen">
+				<div>
+					ESCAPE MODE: On
+					<!-- ↥⇡⮉⇪⇑⭮♥♡☖☗♎⏫ -->
 				</div>
+				<div class="options">
+					<div id="buttons">
+						<div id="isrespawning" class="console-item" title="Active Respawn or not !">
+							<div class="console-ico"><img width="16px" heigth="16px" src="assets/img/ladybug.svg"
+									alt="ladybug picture options"></div>
+							<div id="respawning">0</div>
+						</div>
+						<div id="isworldtype" class="console-item" title="Mirrored Or Closed World">
+							<div class="console-ico">↥👁️‍🗨️</div>
+							<div id="worldtype">Mirror</div>
+						</div>
+						<div id="isoutlined" class="console-item active" title="Outlines on/off">
+							<!-- 💫 -->
+							<div class="console-ico">📐</div>
+							<div id="outlined">Outlined</div>
+						</div>
+					</div>
 
-				<div id="console">
-					<div class="console-item" title="Spawned by you !">
-						<div class="console-ico">☉</div>
-						<div id="mobcount">0</div>
-					</div>
-					<div class="console-item" title="Ant out of view">
-						<div class="console-ico">☊</div>
-						<div id="mobdead">0</div>
-					</div>
-					<div class="console-item" title="ReSpawned !">
-						<div class="console-ico">☋</div>
-						<div id="respawned">0</div>
-					</div>
 				</div>
 			</div>
+
+			<div id="console">
+				<div class="console-item" title="Spawned by you !">
+					<div class="console-ico">☉</div>
+					<div id="mobcount">0</div>
+				</div>
+				<div class="console-item" title="Ant out of view">
+					<div class="console-ico">☊</div>
+					<div id="mobdead">0</div>
+				</div>
+				<div class="console-item" title="ReSpawned !">
+					<div class="console-ico">☋</div>
+					<div id="respawned">0</div>
+				</div>
+			</div>
+
 			<div id="splashgameover">
 				<div class="p0">
 					Oh, Players 0 taste good !<br>
@@ -91,7 +95,7 @@
 					[q or d] to turn !
 				</div>
 			</div>
-			<div id="splashplayer2">
+			<!-- <div id="splashplayer2">
 				<div>GameOver</div>
 				<div class="p2">
 					Oh, Players 3 taste good !<br>
@@ -106,7 +110,7 @@
 					[Enter] to Play !<br>
 					[q or d] to turn !
 				</div>
-			</div>
+			</div> -->
 
 		</div>
 		<script src=' assets/js/main.js' id='main-js'></script>

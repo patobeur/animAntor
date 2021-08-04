@@ -1,6 +1,10 @@
 * {
 	margin: 0;
 	padding: 0;
+	-webkit-user-select: none; /* Safari */
+	-moz-user-select: none; /* Firefox */
+	-ms-user-select: none; /* IE10+/Edge */
+	user-select: none; /* Standard */
 }
 body {
 	color: white;
@@ -78,7 +82,7 @@ body {
 					&.player {
 						// filter: invert(0.5);
 						.rangea {
-							outline: 2px dotted rgba(255, 255, 255, 0.1);
+							// outline: 2px dotted rgba(255, 255, 255, 0.1);
 							background-color: rgba(255, 255, 255, 0.103);
 						}
 						&.overa {
@@ -210,69 +214,81 @@ body {
 				border-radius: 0.5rem;
 			}
 		}
-		#buttons,
-		#console {
-			position: absolute;
-			width: max-content;
-			display: flex;
-			align-items: center;
-			justify-content: center;
-			.console-item {
-				background: rgba(0, 0, 0, 0.1);
-				color: white;
-				font-weight: bold;
-				display: flex;
-				align-items: center;
-				justify-content: center;
-				border-radius: 0.4rem;
-				// outline: 2px solid rgba(255, 255, 255, 0.335);
-				border: 2px solid rgba(255, 255, 255, 0.335);
-				margin-left: 1rem;
-				margin-top: 1rem;
-				.console-ico {
-					height: 100%;
-					border-right: 2px solid rgba(255, 255, 255, 0.335);
-					padding: 0.2rem 0.5rem;
-				}
-				#mobcount,
-				#mobdead,
-				#respawned,
-				#respawning,
-				#worldtype,
-				#outlined {
-					padding: 0.2rem 0.5rem;
-					width: max-content;
-				}
-			}
-		}
-		#buttons {
-			right: 0;
-			.console-item {
-				// 	margin-left: unset;
-				// 	margin-right: 1rem;
-				margin-left: unset;
-				margin-right: 1rem;
-				&.active {
-					background-color: rgba(30, 255, 0, 0.685);
-				}
-			}
-		}
 	}
-	#splashscreen {
+	#escapescreen {
 		display: none;
+		flex-direction: column;
+		align-items: center;
+		justify-content: flex-start;
+		overflow-y: auto;
 		position: absolute;
 		width: 40%;
-		height: 40%;
+		height: 50%;
 		border-radius: 0.5rem;
 		left: 50%;
 		top: 50%;
 		transform: translate(-50%, -50%);
-		background-color: rgba(255, 255, 255, 0.452);
+		background-color: rgba(161, 161, 161, 0.699);
 		border: 2px solid white;
-		z-index: 2000;
+		z-index: 10;
 		&.active {
-			display: initial;
+			display: flex;
 		}
+		.options {
+			#buttons,
+			#console {
+				display: flex;
+				flex-direction: column;
+				align-items: flex-start;
+				justify-content: flex-start;
+				outline: 1px solid yellow;
+				.console-item {
+					background: rgba(0, 0, 0, 0.1);
+					color: white;
+					font-weight: bold;
+
+					display: flex;
+					align-items: center;
+					justify-content: flex-start;
+					border-radius: 0.4rem;
+					// outline: 2px solid rgba(255, 255, 255, 0.335);
+					border: 2px solid rgba(255, 255, 255, 0.335);
+					.console-ico {
+						width: 1rem;
+						height: 100%;
+						border-right: 2px solid rgba(255, 255, 255, 0.335);
+						padding: 0.2rem 0.5rem;
+					}
+					#mobcount,
+					#mobdead,
+					#respawned,
+					#respawning,
+					#worldtype,
+					#outlined {
+						padding: 0.2rem 0.5rem;
+						width: max-content;
+					}
+				}
+			}
+		}
+		// #console {
+		// 	height: max-content;
+		// 	position: absolute;
+		// 	width: max-content;
+		// 	display: none;
+		// 	flex-direction: row;
+		// 	align-items: center;
+		// 	justify-content: flex-start;
+		// 	.console-item {
+		// 		// 	margin-left: unset;
+		// 		// 	margin-right: 1rem;
+		// 		margin-left: unset;
+		// 		margin-right: 1rem;
+		// 		&.active {
+		// 			background-color: rgba(30, 255, 0, 0.685);
+		// 		}
+		// 	}
+		// }
 	}
 	#splashplayer0,
 	#splashplayer1,
@@ -282,10 +298,10 @@ body {
 		width: max-content;
 		height: max-content;
 		border-radius: 0.5rem;
-		left: 25%;
-		bottom: 10%;
+		left: 50%;
+		bottom: 0;
 		transform: translate(-50%, -50%);
-		background-color: rgba(255, 255, 255, 0.452);
+		background-color: rgba(196, 20, 20, 0.452);
 		border: 2px solid white;
 		z-index: 2000;
 		flex-direction: row;
@@ -293,11 +309,14 @@ body {
 		align-items: center;
 		text-align: center;
 		.p0,
-		.p1 {
+		.p1,
+		.p2,
+		.p3 {
 			border-radius: 0.5rem;
 			margin: 0.5rem;
 			border-radius: 0.5rem;
 			border: 2px solid rgba(255, 255, 255, 0.281);
+			background-color: rgba(240, 23, 185, 0.452);
 			padding: 0.5rem;
 		}
 		&.active {
@@ -305,17 +324,20 @@ body {
 		}
 	}
 	#splashplayer1 {
-		left: 75%;
+		left: 50%;
+		top: 0;
+		bottom: unset;
+		transform: rotate(180deg) translate(50%, -50%);
 	}
 	#splashplayer2 {
 		bottom: 90%;
 		left: 75%;
-		transform: rotateX(180deg) translate(-50%, 0);
+		transform: rotate(180deg) translate(50%, -100%);
 	}
 	#splashplayer3 {
 		bottom: 90%;
 		left: 25%;
-		transform: rotateX(180deg) translate(-50%, 0);
+		transform: rotate(180deg) translate(50%, -100%);
 	}
 	#splashgameover {
 		position: absolute;

@@ -1,6 +1,14 @@
 * {
   margin: 0;
   padding: 0;
+  -webkit-user-select: none;
+  /* Safari */
+  -moz-user-select: none;
+  /* Firefox */
+  -ms-user-select: none;
+  /* IE10+/Edge */
+  user-select: none;
+  /* Standard */
 }
 
 body {
@@ -82,7 +90,6 @@ body #fullscreen #playground #mob .ant.overa .rangea {
 }
 
 body #fullscreen #playground #mob .ant.player .rangea {
-  outline: 2px dotted rgba(255, 255, 255, 0.1);
   background-color: rgba(255, 255, 255, 0.103);
 }
 
@@ -220,25 +227,58 @@ body #fullscreen #info a {
   border-radius: 0.5rem;
 }
 
-body #fullscreen #buttons,
-body #fullscreen #console {
-  position: absolute;
-  width: -webkit-max-content;
-  width: -moz-max-content;
-  width: max-content;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
+body #escapescreen {
+  display: none;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  overflow-y: auto;
+  position: absolute;
+  width: 40%;
+  height: 50%;
+  border-radius: 0.5rem;
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  background-color: rgba(161, 161, 161, 0.699);
+  border: 2px solid white;
+  z-index: 10;
 }
 
-body #fullscreen #buttons .console-item,
-body #fullscreen #console .console-item {
+body #escapescreen.active {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+body #escapescreen .options #buttons,
+body #escapescreen .options #console {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  outline: 1px solid yellow;
+}
+
+body #escapescreen .options #buttons .console-item,
+body #escapescreen .options #console .console-item {
   background: rgba(0, 0, 0, 0.1);
   color: white;
   font-weight: bold;
@@ -248,70 +288,37 @@ body #fullscreen #console .console-item {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
   border-radius: 0.4rem;
   border: 2px solid rgba(255, 255, 255, 0.335);
-  margin-left: 1rem;
-  margin-top: 1rem;
 }
 
-body #fullscreen #buttons .console-item .console-ico,
-body #fullscreen #console .console-item .console-ico {
+body #escapescreen .options #buttons .console-item .console-ico,
+body #escapescreen .options #console .console-item .console-ico {
+  width: 1rem;
   height: 100%;
   border-right: 2px solid rgba(255, 255, 255, 0.335);
   padding: 0.2rem 0.5rem;
 }
 
-body #fullscreen #buttons .console-item #mobcount,
-body #fullscreen #buttons .console-item #mobdead,
-body #fullscreen #buttons .console-item #respawned,
-body #fullscreen #buttons .console-item #respawning,
-body #fullscreen #buttons .console-item #worldtype,
-body #fullscreen #buttons .console-item #outlined,
-body #fullscreen #console .console-item #mobcount,
-body #fullscreen #console .console-item #mobdead,
-body #fullscreen #console .console-item #respawned,
-body #fullscreen #console .console-item #respawning,
-body #fullscreen #console .console-item #worldtype,
-body #fullscreen #console .console-item #outlined {
+body #escapescreen .options #buttons .console-item #mobcount,
+body #escapescreen .options #buttons .console-item #mobdead,
+body #escapescreen .options #buttons .console-item #respawned,
+body #escapescreen .options #buttons .console-item #respawning,
+body #escapescreen .options #buttons .console-item #worldtype,
+body #escapescreen .options #buttons .console-item #outlined,
+body #escapescreen .options #console .console-item #mobcount,
+body #escapescreen .options #console .console-item #mobdead,
+body #escapescreen .options #console .console-item #respawned,
+body #escapescreen .options #console .console-item #respawning,
+body #escapescreen .options #console .console-item #worldtype,
+body #escapescreen .options #console .console-item #outlined {
   padding: 0.2rem 0.5rem;
   width: -webkit-max-content;
   width: -moz-max-content;
   width: max-content;
-}
-
-body #fullscreen #buttons {
-  right: 0;
-}
-
-body #fullscreen #buttons .console-item {
-  margin-left: unset;
-  margin-right: 1rem;
-}
-
-body #fullscreen #buttons .console-item.active {
-  background-color: rgba(30, 255, 0, 0.685);
-}
-
-body #splashscreen {
-  display: none;
-  position: absolute;
-  width: 40%;
-  height: 40%;
-  border-radius: 0.5rem;
-  left: 50%;
-  top: 50%;
-  -webkit-transform: translate(-50%, -50%);
-          transform: translate(-50%, -50%);
-  background-color: rgba(255, 255, 255, 0.452);
-  border: 2px solid white;
-  z-index: 2000;
-}
-
-body #splashscreen.active {
-  display: initial;
 }
 
 body #splashplayer0,
@@ -326,11 +333,11 @@ body #splashplayer3 {
   height: -moz-max-content;
   height: max-content;
   border-radius: 0.5rem;
-  left: 25%;
-  bottom: 10%;
+  left: 50%;
+  bottom: 0;
   -webkit-transform: translate(-50%, -50%);
           transform: translate(-50%, -50%);
-  background-color: rgba(255, 255, 255, 0.452);
+  background-color: rgba(196, 20, 20, 0.452);
   border: 2px solid white;
   z-index: 2000;
   -webkit-box-orient: horizontal;
@@ -348,16 +355,25 @@ body #splashplayer3 {
 
 body #splashplayer0 .p0,
 body #splashplayer0 .p1,
+body #splashplayer0 .p2,
+body #splashplayer0 .p3,
 body #splashplayer1 .p0,
 body #splashplayer1 .p1,
+body #splashplayer1 .p2,
+body #splashplayer1 .p3,
 body #splashplayer2 .p0,
 body #splashplayer2 .p1,
+body #splashplayer2 .p2,
+body #splashplayer2 .p3,
 body #splashplayer3 .p0,
-body #splashplayer3 .p1 {
+body #splashplayer3 .p1,
+body #splashplayer3 .p2,
+body #splashplayer3 .p3 {
   border-radius: 0.5rem;
   margin: 0.5rem;
   border-radius: 0.5rem;
   border: 2px solid rgba(255, 255, 255, 0.281);
+  background-color: rgba(240, 23, 185, 0.452);
   padding: 0.5rem;
 }
 
@@ -369,21 +385,25 @@ body #splashplayer3.active {
 }
 
 body #splashplayer1 {
-  left: 75%;
+  left: 50%;
+  top: 0;
+  bottom: unset;
+  -webkit-transform: rotate(180deg) translate(50%, -50%);
+          transform: rotate(180deg) translate(50%, -50%);
 }
 
 body #splashplayer2 {
   bottom: 90%;
   left: 75%;
-  -webkit-transform: rotateX(180deg) translate(-50%, 0);
-          transform: rotateX(180deg) translate(-50%, 0);
+  -webkit-transform: rotate(180deg) translate(50%, -100%);
+          transform: rotate(180deg) translate(50%, -100%);
 }
 
 body #splashplayer3 {
   bottom: 90%;
   left: 25%;
-  -webkit-transform: rotateX(180deg) translate(-50%, 0);
-          transform: rotateX(180deg) translate(-50%, 0);
+  -webkit-transform: rotate(180deg) translate(50%, -100%);
+          transform: rotate(180deg) translate(50%, -100%);
 }
 
 body #splashgameover {
