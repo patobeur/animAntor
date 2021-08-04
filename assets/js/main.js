@@ -47,6 +47,12 @@ function getAllDivObjects() {
 	worldtype = document.getElementById('worldtype')
 	isoutlined = document.getElementById('isoutlined')
 	outlined = document.getElementById('outlined')
+	splashplayer0 = document.getElementById('splashplayer0')
+	p0left = document.getElementById('p0left')
+	p0right = document.getElementById('p0right')
+	splashplayer1 = document.getElementById('splashplayer1')
+	p1left = document.getElementById('p1left')
+	p1right = document.getElementById('p1right')
 }
 function WindowisLoaded() {
 	// -----------------------------
@@ -86,6 +92,13 @@ function WindowisLoaded() {
 
 		// console.log(eventkeydown.key)
 	};
+	splashplayer0.addEventListener("click", () => { PlayGround.startGame(0); })
+	p0left.addEventListener("click", () => { PlayGround.PlayGoLeft(0); })
+	p0right.addEventListener("click", () => { PlayGround.PlayGoRight(0); })
+	splashplayer1.addEventListener("click", () => { PlayGround.startGame(1); })
+	p1left.addEventListener("click", () => { PlayGround.PlayGoLeft(1); })
+	p1right.addEventListener("click", () => { PlayGround.PlayGoRight(1); })
+
 	isresPawning.addEventListener("click", () => {
 		if (!PlayGround.Pause) {
 			PlayGround.set_respawn()

@@ -25,7 +25,7 @@ class Ants {
 		let size = datas.size ?? 35
 		let hp = datas.hp ?? 100
 		let pos = datas.pos ?? [aleaEntreBornes(1, playGroundSize.w - size), aleaEntreBornes(1, playGroundSize.h - size), 0]
-
+		console.log(datas.type)
 		datas = {
 			playerid: playerid,
 			type: type,
@@ -45,7 +45,7 @@ class Ants {
 			velocity: datas.velocity ?? 2,
 			delay: [0, (datas.delay ?? 20)],
 			aSize: datas.aSize ?? 3,
-			visual: this.get_visual((!datas.ia ? 'player' : 'ant')),
+			visual: this.get_visual((type === 'ia' ? 'ladybug' : type)),
 			direction: datas.direction ?? aleaEntreBornes(0, 359),
 			// "color": 'rgb(' + aleaEntreBornes(50, 255) + ', ' + aleaEntreBornes(50, 255) + ', ' + aleaEntreBornes(50, 255) + ')',
 			colors: this.get_colors(),
@@ -138,6 +138,7 @@ class Ants {
 	}
 	get_visual(type) {
 		let visual = {
+			ladybug: ['ladybug_black.svg', 'ladybug_white.svg'],
 			ant: ['ladybug_black.svg', 'ladybug_white.svg'],
 			player: ['ant_black.png', 'ant_white.png'],
 		}

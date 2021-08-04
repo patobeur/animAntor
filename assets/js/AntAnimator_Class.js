@@ -55,8 +55,12 @@ class AntAnimator {
 			let targetplayerdiv = document.getElementById('splashplayer' + playerid)
 			if (forcing) {
 				targetplayerdiv.classList.add('active')
+				document.getElementById('p' + playerid + 'left').classList.remove('active')
+				document.getElementById('p' + playerid + 'right').classList.remove('active')
 			} else {
 				targetplayerdiv.classList.remove('active')
+				document.getElementById('p' + playerid + 'left').classList.add('active')
+				document.getElementById('p' + playerid + 'right').classList.add('active')
 			}
 		}
 		else {
@@ -64,8 +68,12 @@ class AntAnimator {
 				let targetplayerdiv = document.getElementById('splashplayer' + index)
 				if (this.playersIdList[index]) {
 					targetplayerdiv.classList.remove('active')
+					document.getElementById('p' + index + 'left').classList.add('active')
+					document.getElementById('p' + index + 'right').classList.add('active')
 				} else {
 					targetplayerdiv.classList.add('active')
+					document.getElementById('p' + index + 'left').classList.remove('active')
+					document.getElementById('p' + index + 'right').classList.remove('active')
 				}
 			}
 		}
