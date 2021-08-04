@@ -351,6 +351,7 @@ body #splashplayer3 {
       -ms-flex-align: center;
           align-items: center;
   text-align: center;
+  display: none;
 }
 
 body #splashplayer0 .p0,
@@ -381,7 +382,9 @@ body #splashplayer0.active,
 body #splashplayer1.active,
 body #splashplayer2.active,
 body #splashplayer3.active {
-  display: initial;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
 }
 
 body #splashplayer1 {

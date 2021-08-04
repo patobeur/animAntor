@@ -6,9 +6,9 @@ class AntAnimator {
 		this.maxx = 0
 		this.ratio = 1
 		// -----------------------------
-		this.playersIdList = [];
+		this.playersIdList = [false, false, false, false];
 		this.playersDatas = [];
-		this.maxPlayer = 3;
+		this.maxPlayer = 2;
 		this.CurrentPlayers = 0;
 		// -----------------------------
 		this.antsToDelete = []
@@ -27,6 +27,7 @@ class AntAnimator {
 		this.GameOn = false
 		this.GameOver = false
 		this.set_SplashScreen()
+		this.set_PlayerScreen()
 
 	}
 	setPause() {
@@ -46,6 +47,26 @@ class AntAnimator {
 				escapescreen.classList.add('active')
 			} else {
 				escapescreen.classList.remove('active')
+			}
+		}
+	}
+	set_PlayerScreen(forcing = 'vide', playerid = 'vide') {
+		if (!forcing === 'vide' && !playerid === 'vide') {
+			let targetplayerdiv = document.getElementById('splashplayer' + playerid)
+			if (forcing) {
+				targetplayerdiv.classList.add('active')
+			} else {
+				targetplayerdiv.classList.remove('active')
+			}
+		}
+		else {
+			for (let index = 0; index < this.maxPlayer; index++) {
+				let targetplayerdiv = document.getElementById('splashplayer' + index)
+				if (this.playersIdList[index]) {
+					targetplayerdiv.classList.remove('active')
+				} else {
+					targetplayerdiv.classList.add('active')
+				}
 			}
 		}
 	}
@@ -71,7 +92,6 @@ class AntAnimator {
 		this.addPlayer(playeridx)
 	}
 	addPlayer(playeridx) {
-		console.log('trying generation of player-' + playeridx)
 		if (!this.playersIdList[playeridx]) {
 			this.escapeScreenBool = false
 			this.set_EscapeScreen(false)
@@ -93,9 +113,8 @@ class AntAnimator {
 				//--
 				this.playersIdList[playeridx] = this.Ants.immat
 				this.playersDatas[this.Ants.immat] = playerdatas
-				console.log('------------')
-				console.log(playerdatas)
 				this.Ants.addAnt(playerdatas)
+				this.set_PlayerScreen(false, playeridx)
 				// }
 			}
 			else {
@@ -133,9 +152,6 @@ class AntAnimator {
 			return nd
 		}
 		this.Ants.allAnts.forEach(ant => {
-			// console.log(ant.ia)
-			// console.log(ant.type)
-			// console.log(ant.playerid)
 			if (ant.state[0] === "") {
 				ant.state[0] = "walking"
 			}
@@ -158,12 +174,6 @@ class AntAnimator {
 				else {
 					// ant.state[0] = "walking"
 					if (ant.playerid[0] >= 0) {
-						// console.log(this.playersIdList)
-						// console.log(this.playersDatas)
-						// console.log(this.playersIdList[ant.playerid[0]])
-						// console.log(this.playersDatas)
-						// console.log('immmat:' + this.playersIdList[ant.playerid[0]])
-						// console.log(this.playersDatas[this.playersIdList[ant.playerid[0]]])
 						let Compass = this.playersDatas[this.playersIdList[ant.playerid[0]]].compass
 						ant.delay[0] = 0;
 						if (Compass[1] === 1) { Compass[1] = 0, ant.direction = this.getNiceDegrees(ant.direction, ant.agility, 'right') } // right
@@ -221,11 +231,6 @@ class AntAnimator {
 
 			// delete and respawn if is the mob stat is out
 			if (ant.state[3] === "dead") {
-				if (!ant.ia[0]) {
-					console.log('ant ' + ant.immat + ' dead')
-					console.log(ant)
-					console.log(ant.type + ' ' + ant.playerid[0] + ' dead')
-				}
 				this.addMobToDeletation(currentMobIdx)
 			}
 			// recenter if is the mob stat is out
@@ -234,13 +239,8 @@ class AntAnimator {
 				ant.y = ant.pos[1]
 				ant.state[1] = false
 			}
-
-
-			// 
 			currentMobIdx++
-
-			// end foreach
-		})
+		}) // end foreach
 		// deletion
 		if (this.antsToDelete.length > 0) {
 			this.deleteMobListe()
@@ -303,12 +303,9 @@ class AntAnimator {
 		nbDeadAnts++
 	}
 	DeletePlayer(immat) {
-		console.log('DeletePlayer:')
-		console.log(this.Ants.allAnts[immat])
-		// this.playersDatas[immat] = false
 		this.playersIdList[this.Ants.allAnts[immat].playerid[0]] = false
-		console.log('Player:' + immat + ' set to false')
-		console.log(this.playersIdList)
+		this.set_PlayerScreen(true, this.Ants.allAnts[immat].playerid[0])
+
 	}
 	addMobToRecentering(immat) {
 		this.antsToRecenter.push(immat)
@@ -322,7 +319,6 @@ class AntAnimator {
 			document.getElementById(this.Ants.allAnts[immat].type + "-" + this.Ants.allAnts[immat].num).remove()
 			if (!this.Ants.allAnts[immat].ia[0]) {
 
-				console.log('Player:' + immat + ' send to deletation !')
 				// delete player
 				this.DeletePlayer(immat)
 			}
@@ -365,7 +361,6 @@ class AntAnimator {
 
 	redrawAllMobs = () => {
 		this.Ants.allAnts.forEach(ant => {
-			// console.log(ant.type + "-" + ant.num)
 			let currentMob = document.getElementById(ant.type + "-" + ant.num);
 
 			let elem = currentMob.querySelector(".mobinfo");
@@ -496,13 +491,13 @@ class AntAnimator {
 	PlayGoRight = (idx) => {
 		if (this.playersDatas[this.playersIdList[idx]]) {
 			this.playersDatas[this.playersIdList[idx]].compass[1] = 1
-			console.log(this.playersDatas[this.playersIdList[idx]].compass)
+			// console.log(this.playersDatas[this.playersIdList[idx]].compass)
 		}
 	}
 	PlayGoLeft = (idx) => {
 		if (this.playersDatas[this.playersIdList[idx]]) {
 			this.playersDatas[this.playersIdList[idx]].compass[3] = 1
-			console.log(this.playersDatas[this.playersIdList[idx]].compass)
+			// console.log(this.playersDatas[this.playersIdList[idx]].compass)
 		}
 	}
 	renderScene = () => {

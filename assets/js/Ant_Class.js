@@ -9,19 +9,14 @@ class Ants {
 		this.immat = 0 // unique ant num
 	}
 	addAnt(datas = false) {
-		console.log('addAnt')
-		console.log(datas)
 		if (this.allAnts.length < this.maxAnts) {
 			this.allAnts.push(this.get_Mob(datas))
 			this.appendAntDiv()
 			this.immat++
 			this.refreshConsole()
 		}
-		console.log(PlayGround.playersIdList)
 	}
 	get_Mob(datas = false) {
-		console.log('get_Mob reçus')
-		console.log(datas)
 		let playerid = (datas.playerid && datas.playerid[0] >= 0) ? datas.playerid : false
 		let type = datas.type ?? 'ia'
 		let immat = this.immat
@@ -29,7 +24,7 @@ class Ants {
 		let name = datas.name ?? 'amy'
 		let size = datas.size ?? 35
 		let hp = datas.hp ?? 100
-		let pos = datas.pos ?? [aleaEntreBornes(1, playGroundSize.w - size), aleaEntreBornes(1, playGroundSize.h - size)]
+		let pos = datas.pos ?? [aleaEntreBornes(1, playGroundSize.w - size), aleaEntreBornes(1, playGroundSize.h - size), 0]
 
 		datas = {
 			playerid: playerid,
@@ -42,6 +37,7 @@ class Ants {
 			pos: pos,
 			x: pos[0],
 			y: pos[1],
+			z: pos[2],
 			immat: immat,
 			// divid: datas.divid ?? false, // not used
 			compass: datas.compass ?? [0, 0, 0, 0], // up,right,down,left dir
@@ -68,7 +64,6 @@ class Ants {
 			power: 0,
 			bousole: ""
 		}
-		console.log(datas)
 		return datas
 	}
 	appendAntDiv() {
