@@ -76,8 +76,8 @@ function WindowisLoaded() {
 
 			// player 1
 			if (eventkeydown.key === " ") { PlayGround.startGame(0) }
-			if (eventkeydown.key === "ArrowLeft") { PlayGround.PlayGoLeft(0); PlayGround.PlayGoLeft(1); PlayGround.PlayGoLeft(2) }
-			if (eventkeydown.key === "ArrowRight") { PlayGround.PlayGoRight(0); PlayGround.PlayGoRight(1); PlayGround.PlayGoRight(2) }
+			if (eventkeydown.key === "ArrowLeft") { PlayGround.PlayGoLeft(0); }
+			if (eventkeydown.key === "ArrowRight") { PlayGround.PlayGoRight(0); }
 			if (eventkeydown.key === "ArrowUp") { PlayGround.PlayGoUp(0) }
 			if (eventkeydown.key === "ArrowDown") { PlayGround.PlayGoDown(0) }
 			// player 2

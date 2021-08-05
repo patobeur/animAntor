@@ -480,12 +480,12 @@ class AntAnimator {
 				(conditionX0in && conditionY1in) ||
 				(conditionX1in && conditionY1in)
 			)
-			console.log(
-				(conditionX0in && conditionY0in),
-				(conditionX1in && conditionY0in),
-				(conditionX0in && conditionY1in),
-				(conditionX1in && conditionY1in)
-			)
+			// console.log(
+			// 	(conditionX0in && conditionY0in),
+			// 	(conditionX1in && conditionY0in),
+			// 	(conditionX0in && conditionY1in),
+			// 	(conditionX1in && conditionY1in)
+			// )
 			return isin
 		}
 		return function (mobA, zoneid) {
@@ -493,7 +493,7 @@ class AntAnimator {
 				getMobArea(mobA),
 				getAreaZone(zoneid)
 			)
-			console.log('-go--: ' + mobA.type + ': ' + mobA.immat + '-' + data)
+			// console.log('-go--: ' + mobA.type + ': ' + mobA.immat + '-' + data)
 			return data
 		};
 	})(
