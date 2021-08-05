@@ -94,7 +94,9 @@ class Ants {
 				'', //spawned|busy|walking|thinking|... (use ti be used by scss)
 				'',
 				'', //shielded|immune1Round|... 
-				'alive'//death|recenter|... 
+				'alive',//death|recenter|... 
+				'',//??
+				''//immune
 			],
 			overlap: [false, false], // [0=self,1=rangeA],
 			lastenemyid: 0,
@@ -195,7 +197,7 @@ class Ants {
 		// mobDead.textContent = nbDeadAnts
 		// mobRespawn.textContent = nbRespawnAnts
 		// remainingmobs.textContent = nbRespawnAnts
-		remainingmobs.textContent = this.allAnts.length
+		remainingmobs.textContent = this.allAnts.length + "/" + this.maxAnts
 		let max = this.allAnts.length > 10 ? 10 : this.allAnts.length
 		remainingmobs.style.width = ((max) * 40) + px
 		remainingmobs.style.height = ((max) * 40) + px

@@ -77,12 +77,12 @@ body #fullscreen #playground #remainingmobs {
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
-  font-size: 9rem;
+  font-size: 6rem;
   color: rgba(0, 0, 0, 0.2);
 }
 
 body #fullscreen #playground #remainingmobs.active {
-  background-color: indigo;
+  background-color: #9500ff;
 }
 
 body #fullscreen #playground #mob {

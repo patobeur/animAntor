@@ -14,6 +14,7 @@ class AntAnimator {
 		this.antsToDelete = []
 		this.antsToRecenter = []
 		this.CurrentMaxKills = 0;
+		this.antsDeleted = 0;
 		// playGroundSize = { 'w': 640, 'h': 320 }; //tweak
 		// playGroundSize = { 'w': 1280, 'h': 640 }; //tweak
 		// playGroundSize = { 'w': 400, 'h': 400 }; //tweak
@@ -245,7 +246,7 @@ class AntAnimator {
 
 
 			if (!immunezonning) {
-				if (ant.state[2] === 'immune') { ant.state[2] = '' }
+				if (ant.state[5] === 'immune') { ant.state[5] = '' }
 				this.checkOverlaps(ant)
 				remainingmobs.classList.remove('active')
 				if (ant.state[3] === "dead") {
@@ -253,11 +254,11 @@ class AntAnimator {
 				}
 			}
 			else {
-				if (ant.state[2] === '') { ant.state[2] = 'immune' }
+				if (ant.state[5] === '') { ant.state[5] = 'immune' }
 				// console.log('mob:' + ant.immat + ' CANT Die')
 				remainingmobs.classList.add('active')
+				immunezonning = false
 			}
-			immunezonning = false
 			// recenter if is the mob stat is out
 			if (ant.state[1] === "recenter") {
 				ant.x = ant.pos[0]
@@ -356,10 +357,12 @@ class AntAnimator {
 			}
 			this.Ants.allAnts.splice(immat, 1)
 
-			// if (respawn) {
-			// 	this.Ants.addAnt("amy")
-			// 	nbRespawnAnts++
-			// }
+			if (respawn) {
+				if (this.Ants.allAnts.length < this.Ants.maxAnts) {
+					this.Ants.addAnt()
+					// nbRespawnAnts++
+				}
+			}
 		})
 		this.antsToDelete = []
 		this.Ants.refreshConsole()
@@ -411,10 +414,11 @@ class AntAnimator {
 			let classSelf = (ant.overlap[0] === true) ? " overself" : ""
 			let classRangeA = (ant.overlap[1] === true) ? " overa" : ""
 			let classDead = (ant.state[3] === "dead") ? " dead" : ""
-			let classImmune = (ant.state[2] != '') ? " " + ant.state[2] : ""
+			let classImmune = (ant.state[5] != '') ? " " + ant.state[5] : ""
+			let classImmune1Round = (ant.state[2] != '') ? " " + ant.state[2] : ""
 			// ---------------------------------------------
 			// classname
-			currentMob.className = 'moob ' + ant.type + " " + ant.state[0] + classImmune + classSelf + classRangeA + classDead;
+			currentMob.className = 'moob ' + ant.type + " " + ant.state[0] + classImmune + classImmune1Round + classSelf + classRangeA + classDead;
 			// refresh info
 			let mobinfo = document.createElement('div')
 			mobinfo.className = "mobinfo"
@@ -609,8 +613,19 @@ class AntAnimator {
 		}
 	}
 	checkWin = () => {
-		if (this.playersIdList.length === this.Ants.allAnts.length) {
-			// duel
+		if (this.playersIdList.length === this.Ants.allAnts.length && this.playersIdList.length > 1) {
+			let text = ''
+			for (let index = 0; index < this.playersIdList.length; index++) {
+				if (this.playersIdList[index]) {
+					text += (text === '' ? '' : ',') + index
+				}
+			}
+			console.log('Duel Players: ' + text + ' ! Run Forest !')
+		}
+		else if (this.Ants.allAnts.length === 2 && this.playersIdList.length === 1) {
+			for (let index = 0; index < this.playersIdList.length; index++) {
+				console.log('Duel ' + this.Ants.allAnts[0].name + ' vs ' + this.Ants.allAnts[1].name)
+			}
 		}
 		else if (this.Ants.allAnts.length === 1 && this.playersIdList.length === 1) {
 			for (let index = 0; index < this.playersIdList.length; index++) {
@@ -618,6 +633,7 @@ class AntAnimator {
 				if (this.playersIdList[index]) {
 					winner = index
 					immat = this.playersIdList[index]
+					console.log('winner is Player: ' + winner)
 				}
 			}
 		}
