@@ -17,6 +17,9 @@ body {
   font-family: "Montserrat";
   font-weight: bold;
   background: black;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
 }
 
 body #fullscreen {
@@ -259,8 +262,7 @@ body #escapescreen.active {
   display: flex;
 }
 
-body #escapescreen .options #buttons,
-body #escapescreen .options #console {
+body #escapescreen .options #buttons {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -275,10 +277,11 @@ body #escapescreen .options #console {
       -ms-flex-pack: start;
           justify-content: flex-start;
   outline: 1px solid yellow;
+  width: 25px;
+  background: rgba(126, 30, 30, 0.863);
 }
 
-body #escapescreen .options #buttons .console-item,
-body #escapescreen .options #console .console-item {
+body #escapescreen .options #buttons .console-item {
   background: rgba(0, 0, 0, 0.1);
   color: white;
   font-weight: bold;
@@ -295,8 +298,7 @@ body #escapescreen .options #console .console-item {
   border: 2px solid rgba(255, 255, 255, 0.335);
 }
 
-body #escapescreen .options #buttons .console-item .console-ico,
-body #escapescreen .options #console .console-item .console-ico {
+body #escapescreen .options #buttons .console-item .console-ico {
   width: 1rem;
   height: 100%;
   border-right: 2px solid rgba(255, 255, 255, 0.335);
@@ -308,13 +310,60 @@ body #escapescreen .options #buttons .console-item #mobdead,
 body #escapescreen .options #buttons .console-item #respawned,
 body #escapescreen .options #buttons .console-item #respawning,
 body #escapescreen .options #buttons .console-item #worldtype,
-body #escapescreen .options #buttons .console-item #outlined,
-body #escapescreen .options #console .console-item #mobcount,
-body #escapescreen .options #console .console-item #mobdead,
-body #escapescreen .options #console .console-item #respawned,
-body #escapescreen .options #console .console-item #respawning,
-body #escapescreen .options #console .console-item #worldtype,
-body #escapescreen .options #console .console-item #outlined {
+body #escapescreen .options #buttons .console-item #outlined {
+  padding: 0.2rem 0.5rem;
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
+}
+
+body #console {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
+  z-index: 11;
+}
+
+body #console .console-item {
+  background: rgba(218, 59, 59, 0.788);
+  color: white;
+  font-weight: bold;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  border-radius: 0.4rem;
+  border: 2px solid rgba(255, 255, 255, 0.335);
+}
+
+body #console .console-item .console-ico {
+  width: 0.5rem;
+  border-right: 2px solid rgba(255, 255, 255, 0.335);
+  padding: 0.2rem 0.5rem;
+}
+
+body #console .console-item #worldtype,
+body #console .console-item #outlined,
+body #console .console-item #remainingmobs {
+  min-width: 0.5rem;
   padding: 0.2rem 0.5rem;
   width: -webkit-max-content;
   width: -moz-max-content;

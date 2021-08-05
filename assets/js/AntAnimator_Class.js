@@ -342,6 +342,7 @@ class AntAnimator {
 			// }
 		})
 		this.antsToDelete = []
+		this.Ants.refreshConsole()
 	}
 	// mobs traitements
 	resizeMobs(type, mob) {

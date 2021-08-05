@@ -5,9 +5,10 @@ let PlayGround = Object
 let interval = 1000 / 120 // render speed
 
 // -----------------------------
-let playGroundSize = { 'w': window.innerWidth - 40, 'h': window.innerHeight - 40 };
+let screenborder = 20 // twice the value in pixels
+let playGroundSize = { 'w': window.innerWidth - screenborder, 'h': window.innerHeight - screenborder };
 let worldType = "mirrored" //  "mirrored" || "closed"
-let outLinedBool = true //  "outlined" || ""
+let outLinedBool = false //  "outlined" || ""
 let respawn = true
 let startSpawn = 5//((playGroundSize.w + playGroundSize.h) / 2) / 30 // automatique spawner
 // -----------------------------
@@ -18,8 +19,8 @@ let pt = '%'
 let nbDeadAnts = 0 // total mob out
 let nbRespawnAnts = 0 // total mob respawned if respawn = true
 // -----------------------------
-let playGround, mobCount, mobDead // counts
-let mobRespawn, resPawning, isresPawning, worldtype, isworldtype, outlined, isoutlined
+// let mobRespawn, mobCount, mobDead // counts
+let playGround, resPawning, isresPawning, worldtype, isworldtype, outlined, isoutlined
 let escapescreen
 let mobGround // element div for mob spawn
 // let playGroundSize = { 'w': 1280, 'h': 640 };
@@ -38,9 +39,9 @@ function getAllDivObjects() {
 	escapescreen = document.getElementById('escapescreen')
 	playGround = document.getElementById('playground')
 	mobGround = document.getElementById('mob')
-	mobCount = document.getElementById('mobcount')
-	mobDead = document.getElementById('mobdead')
-	mobRespawn = document.getElementById('respawned')
+	// mobCount = document.getElementById('mobcount')
+	// mobDead = document.getElementById('mobdead')
+	// mobRespawn = document.getElementById('respawned')
 	isresPawning = document.getElementById('isrespawning')
 	resPawning = document.getElementById('respawning')
 	isworldtype = document.getElementById('isworldtype')

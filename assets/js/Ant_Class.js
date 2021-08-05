@@ -62,7 +62,8 @@ class Ants {
 			kills: 0,
 			food: 0,
 			power: 0,
-			bousole: ""
+			boussole: "",
+			lv: 0
 		}
 		return datas
 	}
@@ -133,9 +134,12 @@ class Ants {
 		return ['rgba(' + r + ',' + g + ',' + b + ',' + a + ')', BorW]
 	}
 	refreshConsole() {
-		mobCount.textContent = this.allAnts.length
-		mobDead.textContent = nbDeadAnts
-		mobRespawn.textContent = nbRespawnAnts
+		// mobCount.textContent = this.allAnts.length
+		// mobDead.textContent = nbDeadAnts
+		// mobRespawn.textContent = nbRespawnAnts
+		// remainingmobs.textContent = nbRespawnAnts
+		document.getElementById('remainingmobs').textContent = this.allAnts.length
+
 	}
 	get_visual(type) {
 		let visual = {

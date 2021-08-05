@@ -12,6 +12,9 @@ body {
 	font-family: "Montserrat";
 	font-weight: bold;
 	background: rgb(0, 0, 0);
+	width: 100%;
+	height: 100vh;
+	overflow: hidden;
 	#fullscreen {
 		position: relative;
 		height: 100vh;
@@ -236,13 +239,14 @@ body {
 			display: flex;
 		}
 		.options {
-			#buttons,
-			#console {
+			#buttons {
 				display: flex;
 				flex-direction: column;
 				align-items: flex-start;
 				justify-content: flex-start;
 				outline: 1px solid yellow;
+				width: 25px;
+				background: rgba(126, 30, 30, 0.863);
 				.console-item {
 					background: rgba(0, 0, 0, 0.1);
 					color: white;
@@ -290,6 +294,42 @@ body {
 		// 		}
 		// 	}
 		// }
+	}
+	#console {
+		display: flex;
+		flex-direction: column;
+		align-items: flex-start;
+		justify-content: flex-start;
+		width: max-content;
+		z-index: 11;
+		.console-item {
+			background: rgba(218, 59, 59, 0.788);
+			color: white;
+			font-weight: bold;
+
+			display: flex;
+			align-items: center;
+			justify-content: flex-start;
+			border-radius: 0.4rem;
+			// outline: 2px solid rgba(255, 255, 255, 0.335);
+			border: 2px solid rgba(255, 255, 255, 0.335);
+			.console-ico {
+				width: 0.5rem;
+				border-right: 2px solid rgba(255, 255, 255, 0.335);
+				padding: 0.2rem 0.5rem;
+			}
+			// #mobcount,
+			// #mobdead,
+			// #respawned,
+			// #respawning,
+			#worldtype,
+			#outlined,
+			#remainingmobs {
+				min-width: 0.5rem;
+				padding: 0.2rem 0.5rem;
+				width: max-content;
+			}
+		}
 	}
 	#splashplayer0,
 	#splashplayer1,
