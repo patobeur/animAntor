@@ -33,7 +33,7 @@ body #fullscreen {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
-  background: #804040;
+  background: black;
   overflow: hidden;
 }
 
@@ -52,6 +52,29 @@ body #fullscreen #playground {
   -webkit-transform: rotateX(10deg);
   transform: rotateX(10deg);
   outline: 5px solid rgba(172, 255, 47, 0.116);
+}
+
+body #fullscreen #playground #remainingmobs {
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  background-color: rgba(255, 255, 255, 0.05);
+  border-radius: 50%;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  font-size: 9rem;
+  color: rgba(0, 0, 0, 0.2);
 }
 
 body #fullscreen #playground #mob {
@@ -386,7 +409,6 @@ body #splashplayer3 {
   bottom: 0;
   -webkit-transform: translate(-50%, -50%);
           transform: translate(-50%, -50%);
-  background-color: rgba(196, 20, 20, 0.452);
   border: 2px solid white;
   z-index: 2000;
   -webkit-box-orient: vertical;
@@ -423,7 +445,7 @@ body #splashplayer3 .p3 {
   margin: 0.5rem;
   border-radius: 0.5rem;
   border: 2px solid rgba(255, 255, 255, 0.281);
-  background-color: rgba(240, 23, 185, 0.452);
+  background-color: rgba(240, 23, 186, 0.253);
   padding: 0.5rem;
 }
 

@@ -21,7 +21,7 @@ body {
 		width: 100%;
 		display: flex;
 		flex-direction: column;
-		background: rgb(128, 64, 64);
+		background: rgb(0, 0, 0);
 		overflow: hidden;
 		#playground {
 			position: absolute;
@@ -36,6 +36,22 @@ body {
 			-webkit-transform: rotateX(10deg); // translate3d(0, 0, -40px);
 			transform: rotateX(10deg); // translate3d(0, 0, -40px);
 			outline: 5px solid rgba(172, 255, 47, 0.116);
+
+			#remainingmobs {
+				position: absolute;
+				width: clac((100vh + 100vw)/2);
+				height: 100px;
+				background-color: rgba(255, 255, 255, 0.05);
+				border-radius: 50%;
+				top: 50%;
+				left: 50%;
+				transform: translate(-50%, -50%);
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				font-size: 9rem;
+				color: rgba(0, 0, 0, 0.2);
+			}
 			#mob {
 				background-image: url(../img/grille_20px.png);
 				background-position: left top;
@@ -342,7 +358,7 @@ body {
 		left: 50%;
 		bottom: 0;
 		transform: translate(-50%, -50%);
-		background-color: rgba(196, 20, 20, 0.452);
+		// background-color: rgba(196, 20, 20, 0.452);
 		border: 2px solid white;
 		z-index: 2000;
 		flex-direction: column;
@@ -358,7 +374,7 @@ body {
 			margin: 0.5rem;
 			border-radius: 0.5rem;
 			border: 2px solid rgba(255, 255, 255, 0.281);
-			background-color: rgba(240, 23, 185, 0.452);
+			background-color: rgba(240, 23, 186, 0.253);
 			padding: 0.5rem;
 		}
 		&.active {
