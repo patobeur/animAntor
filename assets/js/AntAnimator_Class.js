@@ -104,7 +104,7 @@ class AntAnimator {
 			this.escapeScreenBool = false
 			this.set_EscapeScreen(false)
 
-
+			let playerStartDir = [0, 180, 90, 270]
 			if (this.GameOn && !this.GameOver) {
 				// if (playeridx <= this.maxPlayer - 1) {
 				let playerdatas = {
@@ -113,7 +113,7 @@ class AntAnimator {
 					pos: [parseInt((playGroundSize.w) / 2), parseInt((playGroundSize.h) / 2)],
 					type: 'player', // this not a real mob with ia
 					playerid: [playeridx],
-					direction: 0,
+					direction: playerStartDir[playeridx],
 					compass: [0, 0, 0, 0],
 					stacks: []
 				}
@@ -348,8 +348,13 @@ class AntAnimator {
 				// delete player
 				this.DeletePlayer(immat)
 			}
+			if (this.Ants.allAnts[immat].playerid) {
+				console.log('Player ' + this.Ants.allAnts[immat].playerid + ' Oops !')
+			}
+			else {
+				console.log('Deletation of mob #' + immat + '. By by ' + this.Ants.allAnts[immat].name + ' !!')
+			}
 			this.Ants.allAnts.splice(immat, 1)
-			console.log('deleting mob:' + immat + '')
 
 			// if (respawn) {
 			// 	this.Ants.addAnt("amy")
@@ -600,6 +605,21 @@ class AntAnimator {
 		if (!this.Pause && this.GameOn && this.playersIdList.length > 0) {
 			this.redrawAllMobs()
 			this.mobsIA()
+			this.checkWin()
+		}
+	}
+	checkWin = () => {
+		if (this.playersIdList.length === this.Ants.allAnts.length) {
+			// duel
+		}
+		else if (this.Ants.allAnts.length === 1 && this.playersIdList.length === 1) {
+			for (let index = 0; index < this.playersIdList.length; index++) {
+				let winner, immat
+				if (this.playersIdList[index]) {
+					winner = index
+					immat = this.playersIdList[index]
+				}
+			}
 		}
 	}
 }

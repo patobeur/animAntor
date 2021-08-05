@@ -5,8 +5,9 @@ let PlayGround = Object
 let interval = 1000 / 120 // render speed
 
 // -----------------------------
-let screenborder = 20 // twice the value in pixels
+let screenborder = 80 // twice the value in pixels
 let playGroundSize = { 'w': window.innerWidth - screenborder, 'h': window.innerHeight - screenborder };
+console.log(playGroundSize)
 let worldType = "mirrored" //  "mirrored" || "closed"
 let outLinedBool = false //  "outlined" || ""
 let respawn = true

@@ -3,10 +3,13 @@ class Ants {
 	constructor() {
 		// local Datas
 		this.maxAnts = 60;
-		this.mobdivContent = " ";
+		this.mobdivContent = "";
 		this.allAnts = [];
+		this.allTobs = [];
 		// -----------------------------
 		this.immat = 0 // unique ant num
+		this.immattob = 0 // unique tob num
+		this.addTob()
 	}
 	addAnt(datas = false) {
 		if (this.allAnts.length < this.maxAnts) {
@@ -15,6 +18,45 @@ class Ants {
 			this.immat++
 			this.refreshConsole()
 		}
+	}
+	addTob(datas = false) {
+		// if (this.allTobs.length < this.maxTob) {
+		this.allTobs.push(this.get_Tob({ type: 'speed' }))
+		this.appendTobDiv()
+		this.immattob++
+		// }
+	}
+	get_Tob(datas = false) {
+		let type = datas.type ?? 'powerup'
+		let immat = this.immatbonus
+		let name = datas.name ?? 'powerup'
+		let statusname = datas.statusname ?? 'powerup'
+		let tobdatas = this.get_tobdatas(type)
+		let size = datas.size ?? tobdatas.size
+		let xxx = aleaEntreBornes(1, (playGroundSize.w - size[0]))
+		let yyy = aleaEntreBornes(1, (playGroundSize.h - size[1]))
+		let pos = datas.pos ?? [xxx, yyy, 0]
+		datas = {
+			type: type,
+			name: name,
+			statusname: statusname,
+			size: size,
+			immat: immat,
+			hp: 100,
+			pos: pos,
+			x: pos[0],
+			y: pos[1],
+			z: pos[2],
+			visual: this.get_visual(type),
+			direction: datas.direction ?? aleaEntreBornes(0, 359),
+			// "color": 'rgb(' + aleaEntreBornes(50, 255) + ', ' + aleaEntreBornes(50, 255) + ', ' + aleaEntreBornes(50, 255) + ')',
+			colors: this.get_colors(),
+			overlap: [false, false], // [0=self,1=rangeA],
+			classname: 'tob ' + type,
+			boussole: "",
+			tobdatas: this.get_tobdatas(type)
+		}
+		return datas
 	}
 	get_Mob(datas = false) {
 		let playerid = (datas.playerid && datas.playerid[0] >= 0) ? datas.playerid : false
@@ -66,6 +108,22 @@ class Ants {
 		}
 		return datas
 	}
+	appendTobDiv() {
+		// Tob info div
+		let tob = this.allTobs[this.allTobs.length - 1]
+		console.log(tob)
+		let tobinfo = document.createElement('div');
+		tobinfo.className = tob.classname
+		tobinfo.style.width = tob.size[0] + px
+		tobinfo.style.height = tob.size[1] + px
+		tobinfo.style.top = parseInt(tob.y - (tob.size[0] / 2)) + px//
+		tobinfo.style.left = parseInt(tob.x - (tob.size[1] / 2)) + px//
+		// tobinfo.style.backgroundImage = 'url("assets/img/' + (tob.colors[1] === '#000000' ? tob.visual[0] : tob.visual[1]) + '")'
+		// tobinfo.style.backgroundColor = tob.colors[0]
+		// tobinfo.style.transform = "rotate(" + tob.direction + "deg)"
+		tobinfo.textContent = tob.tobdatas.ico
+		document.getElementById("mob").appendChild(tobinfo)
+	}
 	appendAntDiv() {
 		// mob info div
 		let character = this.allAnts[this.allAnts.length - 1]
@@ -99,8 +157,8 @@ class Ants {
 		newMobDiv.id = "item-" + character.num
 		newMobDiv.setAttribute("data-name", character.name)
 		newMobDiv.setAttribute("data-immat", character.immat)
-		newMobDiv.style.top = character.y + px
-		newMobDiv.style.left = (character.x) + px
+		newMobDiv.style.top = (character.y - (character.size / 2)) + px
+		newMobDiv.style.left = (character.x - (character.size / 2)) + px
 		newMobDiv.style.maxWidth = character.size + px
 		newMobDiv.style.maxHeight = character.size + px
 		newMobDiv.style.width = character.size + px
@@ -138,17 +196,31 @@ class Ants {
 		// mobRespawn.textContent = nbRespawnAnts
 		// remainingmobs.textContent = nbRespawnAnts
 		remainingmobs.textContent = this.allAnts.length
-		remainingmobs.style.width = ((this.allAnts.length) * 40) + px
-		remainingmobs.style.height = ((this.allAnts.length) * 40) + px
+		let max = this.allAnts.length > 10 ? 10 : this.allAnts.length
+		remainingmobs.style.width = ((max) * 40) + px
+		remainingmobs.style.height = ((max) * 40) + px
 
 	}
 	get_visual(type) {
 		let visual = {
+			powerup: ['ladybug_black.svg', 'ladybug_white.svg'],
 			ia: ['ladybug_black.svg', 'ladybug_white.svg'],
 			ladybug: ['ladybug_black.svg', 'ladybug_white.svg'],
 			ant: ['ladybug_black.svg', 'ladybug_white.svg'],
 			player: ['ant_black.png', 'ant_white.png'],
 		}
 		return visual[type]
+	}
+	get_tobdatas(type) {
+		let get_tobdatas = {
+			powerup: { ico: '🥝', size: [32, 32] },
+			fly: { ico: '🍋', size: [32, 32] },
+			speed: { ico: '🍓', size: [32, 32] },
+			immune: { ico: '🍅', size: [32, 32] },
+			slow: { ico: '🥕', size: [32, 32] },
+			shield: { ico: '🍄', size: [32, 32] },
+			slowpowerup: { ico: '🥩', size: [32, 32] },
+		}
+		return get_tobdatas[type]
 	}
 }
