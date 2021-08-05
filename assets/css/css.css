@@ -56,14 +56,16 @@ body #fullscreen #playground {
 
 body #fullscreen #playground #remainingmobs {
   position: absolute;
-  width: 100px;
-  height: 100px;
+  width: 1px;
+  height: 1px;
   background-color: rgba(255, 255, 255, 0.05);
-  border-radius: 50%;
+  border-radius: 20%;
   top: 50%;
   left: 50%;
   -webkit-transform: translate(-50%, -50%);
           transform: translate(-50%, -50%);
+  -webkit-transition: width 1s ease, height 1s ease;
+  transition: width 1s ease, height 1s ease;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -75,6 +77,10 @@ body #fullscreen #playground #remainingmobs {
           justify-content: center;
   font-size: 9rem;
   color: rgba(0, 0, 0, 0.2);
+}
+
+body #fullscreen #playground #remainingmobs.active {
+  background-color: indigo;
 }
 
 body #fullscreen #playground #mob {
@@ -96,6 +102,10 @@ body #fullscreen #playground #mob .moob .rangeself,
 body #fullscreen #playground #mob .moob .rangea {
   position: absolute;
   border-radius: 50%;
+}
+
+body #fullscreen #playground #mob .moob.immune .rangea {
+  background-color: rgba(0, 255, 0, 0.164);
 }
 
 body #fullscreen #playground #mob .moob.overself .rangeself {

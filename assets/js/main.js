@@ -20,7 +20,7 @@ let nbDeadAnts = 0 // total mob out
 let nbRespawnAnts = 0 // total mob respawned if respawn = true
 // -----------------------------
 // let mobRespawn, mobCount, mobDead // counts
-let playGround, resPawning, isresPawning, worldtype, isworldtype, outlined, isoutlined
+let playGround, resPawning, isresPawning, worldtype, isworldtype, outlined, isoutlined, remainingmobs
 let escapescreen
 let mobGround // element div for mob spawn
 // let playGroundSize = { 'w': 1280, 'h': 640 };
@@ -36,6 +36,7 @@ function resizePlayGround() {
 	playGround.style.left = ((window.innerWidth - playGroundSize.w) / 2) + px;
 }
 function getAllDivObjects() {
+	remainingmobs = document.getElementById('remainingmobs')
 	escapescreen = document.getElementById('escapescreen')
 	playGround = document.getElementById('playground')
 	mobGround = document.getElementById('mob')

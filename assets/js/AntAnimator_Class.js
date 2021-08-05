@@ -162,6 +162,7 @@ class AntAnimator {
 			nd = nd < 0 ? 360 : nd
 			return nd
 		}
+		let immunezonning = false
 		this.Ants.allAnts.forEach(ant => {
 			if (ant.state[0] === "") {
 				ant.state[0] = "walking"
@@ -238,12 +239,25 @@ class AntAnimator {
 				}
 			}
 
-			this.checkOverlaps(ant)
+			immunezonning = this.isOverlappingZone(ant, 'remainingmobs')
 
-			// delete and respawn if is the mob stat is out
-			if (ant.state[3] === "dead") {
-				this.addMobToDeletation(currentMobIdx)
+
+
+
+			if (!immunezonning) {
+				if (ant.state[2] === 'immune') { ant.state[2] = '' }
+				this.checkOverlaps(ant)
+				remainingmobs.classList.remove('active')
+				if (ant.state[3] === "dead") {
+					this.addMobToDeletation(currentMobIdx)
+				}
 			}
+			else {
+				if (ant.state[2] === '') { ant.state[2] = 'immune' }
+				// console.log('mob:' + ant.immat + ' CANT Die')
+				remainingmobs.classList.add('active')
+			}
+			immunezonning = false
 			// recenter if is the mob stat is out
 			if (ant.state[1] === "recenter") {
 				ant.x = ant.pos[0]
@@ -252,6 +266,7 @@ class AntAnimator {
 			}
 			currentMobIdx++
 		}) // end foreach
+
 		// deletion
 		if (this.antsToDelete.length > 0) {
 			this.deleteMobListe()
@@ -366,7 +381,9 @@ class AntAnimator {
 	resetOverlapsAndimmune1Round() {
 		this.Ants.allAnts.forEach(ant => {
 			ant.overlap = [false, false]
-			ant.state[2] = (ant.state[2] === 'immune1Round') ? 'alive' : ant.state[2]
+			if (ant.state[2] === 'immune1Round') {
+				ant.state[2] = ''
+			}
 		})
 	}
 	//
@@ -389,7 +406,10 @@ class AntAnimator {
 			let classSelf = (ant.overlap[0] === true) ? " overself" : ""
 			let classRangeA = (ant.overlap[1] === true) ? " overa" : ""
 			let classDead = (ant.state[3] === "dead") ? " dead" : ""
-			currentMob.className = 'moob ' + ant.type + " " + ant.state[0] + classSelf + classRangeA + classDead;
+			let classImmune = (ant.state[2] != '') ? " " + ant.state[2] : ""
+			// ---------------------------------------------
+			// classname
+			currentMob.className = 'moob ' + ant.type + " " + ant.state[0] + classImmune + classSelf + classRangeA + classDead;
 			// refresh info
 			let mobinfo = document.createElement('div')
 			mobinfo.className = "mobinfo"
@@ -416,6 +436,69 @@ class AntAnimator {
 			currentMob.appendChild(mobinfo)
 		});
 	}
+	isOverlappingZone = (() => {
+		function getAreaZone(zoneid) {
+			let divZone = document.getElementById('remainingmobs').getBoundingClientRect()
+			let data = [
+				[
+					parseInt(divZone.left),
+					parseInt(divZone.left + divZone.width)
+				], [
+					parseInt(divZone.top),
+					parseInt(divZone.top + divZone.height)
+				]
+			];
+			// console.log(data)
+			return data
+		}
+		function getMobArea(mob) {
+			let data = [
+				[
+					mob.x,
+					mob.x + mob.size
+				], [
+					mob.y,
+					mob.y + mob.size
+				]
+			];
+			// console.log(data)
+			return data
+		}
+		function compareAreas(mobA, zone) {
+			// var dist1 = mobA[0] < zone[0] ? mobA : zone;
+			// var dist2 = mobA[0] < zone[0] ? zone : mobA;
+			// console.log('+++++++++++++++++++++++++')
+			// console.log('mobA ', mobA[0], mobA[1])
+			// console.log('zone ', zone[0], zone[1])
+			let conditionX0in = (zone[0][0] < mobA[0][0] && mobA[0][0] < zone[0][1])
+			let conditionX1in = (zone[0][0] < mobA[0][1] && mobA[0][1] < zone[0][1])
+			let conditionY0in = (zone[1][0] < mobA[1][0] && mobA[1][0] < zone[1][1])
+			let conditionY1in = (zone[1][0] < mobA[1][1] && mobA[1][1] < zone[1][1])
+			let isin = (
+				(conditionX0in && conditionY0in) ||
+				(conditionX1in && conditionY0in) ||
+				(conditionX0in && conditionY1in) ||
+				(conditionX1in && conditionY1in)
+			)
+			console.log(
+				(conditionX0in && conditionY0in),
+				(conditionX1in && conditionY0in),
+				(conditionX0in && conditionY1in),
+				(conditionX1in && conditionY1in)
+			)
+			return isin
+		}
+		return function (mobA, zoneid) {
+			let data = compareAreas(
+				getMobArea(mobA),
+				getAreaZone(zoneid)
+			)
+			console.log('-go--: ' + mobA.type + ': ' + mobA.immat + '-' + data)
+			return data
+		};
+	})(
+		// ???
+	);
 	isOverlapping = (() => {
 		function getArea(mob) {
 			return [
@@ -453,6 +536,7 @@ class AntAnimator {
 	})(
 		// ???
 	);
+
 	checkOverlaps = (currentMob) => {
 		this.Ants.allAnts.forEach(ant => {
 			if (currentMob.num != ant.num && !(currentMob.state[3] === "dead")) {//can't collid my self ?

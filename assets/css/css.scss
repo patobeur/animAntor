@@ -39,18 +39,22 @@ body {
 
 			#remainingmobs {
 				position: absolute;
-				width: clac((100vh + 100vw)/2);
-				height: 100px;
+				width: 1px; //calc(((100vh + 100vw) / 2) / 3);
+				height: 1px; //calc(((100vh + 100vw) / 2) / 3);
 				background-color: rgba(255, 255, 255, 0.05);
-				border-radius: 50%;
+				border-radius: 20%;
 				top: 50%;
 				left: 50%;
 				transform: translate(-50%, -50%);
+				transition: width 1s ease, height 1s ease;
 				display: flex;
 				align-items: center;
 				justify-content: center;
 				font-size: 9rem;
 				color: rgba(0, 0, 0, 0.2);
+				&.active {
+					background-color: indigo;
+				}
 			}
 			#mob {
 				background-image: url(../img/grille_20px.png);
@@ -76,7 +80,10 @@ body {
 						border-radius: 50%;
 						// outline: 3px dotted rgba(255, 255, 255, 0.2);
 					}
-					.rangea {
+					&.immune {
+						.rangea {
+							background-color: rgba(0, 255, 0, 0.164);
+						}
 					}
 					&.overself {
 						.rangeself {

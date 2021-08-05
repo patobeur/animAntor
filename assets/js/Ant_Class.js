@@ -25,7 +25,6 @@ class Ants {
 		let size = datas.size ?? 35
 		let hp = datas.hp ?? 100
 		let pos = datas.pos ?? [aleaEntreBornes(1, playGroundSize.w - size), aleaEntreBornes(1, playGroundSize.h - size), 0]
-		console.log(datas.type)
 		datas = {
 			playerid: playerid,
 			type: type,
@@ -42,7 +41,7 @@ class Ants {
 			// divid: datas.divid ?? false, // not used
 			compass: datas.compass ?? [0, 0, 0, 0], // up,right,down,left dir
 			stacks: datas.stacks ?? [],
-			velocity: datas.velocity ?? 2,
+			velocity: datas.velocity ?? 1.5,
 			delay: [0, (datas.delay ?? 20)],
 			aSize: datas.aSize ?? 3,
 			visual: this.get_visual(type),
@@ -138,7 +137,9 @@ class Ants {
 		// mobDead.textContent = nbDeadAnts
 		// mobRespawn.textContent = nbRespawnAnts
 		// remainingmobs.textContent = nbRespawnAnts
-		document.getElementById('remainingmobs').textContent = this.allAnts.length
+		remainingmobs.textContent = this.allAnts.length
+		remainingmobs.style.width = ((this.allAnts.length) * 40) + px
+		remainingmobs.style.height = ((this.allAnts.length) * 40) + px
 
 	}
 	get_visual(type) {
