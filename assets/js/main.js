@@ -21,6 +21,11 @@ let nbRespawnAnts = 0 // total mob respawned if respawn = true
 // -----------------------------
 // let mobRespawn, mobCount, mobDead // counts
 let playGround, resPawning, isresPawning, worldtype, isworldtype, outlined, isoutlined, remainingmobs
+let splashplayer0, splashplayer1, splashplayer2, splashplayer3
+let p0left, p0right
+let p1left, p1right
+let p2left, p2right
+let p3left, p3right
 let escapescreen
 let mobGround // element div for mob spawn
 // let playGroundSize = { 'w': 1280, 'h': 640 };
