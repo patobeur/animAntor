@@ -61,23 +61,23 @@ body #fullscreen #playground #mob {
   overflow: hidden;
 }
 
-body #fullscreen #playground #mob .ant {
+body #fullscreen #playground #mob .moob {
   position: absolute;
   border-radius: 5px;
 }
 
-body #fullscreen #playground #mob .ant .rangeself,
-body #fullscreen #playground #mob .ant .rangea {
+body #fullscreen #playground #mob .moob .rangeself,
+body #fullscreen #playground #mob .moob .rangea {
   position: absolute;
   border-radius: 50%;
 }
 
-body #fullscreen #playground #mob .ant.overself .rangeself {
+body #fullscreen #playground #mob .moob.overself .rangeself {
   border-radius: unset;
   outline-color: rgba(255, 0, 0, 0.1);
 }
 
-body #fullscreen #playground #mob .ant .visual {
+body #fullscreen #playground #mob .moob .visual {
   background-size: cover;
   border-radius: 25%;
   border-top-left-radius: 50%;
@@ -85,15 +85,15 @@ body #fullscreen #playground #mob .ant .visual {
   text-align: center;
 }
 
-body #fullscreen #playground #mob .ant.overa .rangea {
+body #fullscreen #playground #mob .moob.overa .rangea {
   border-radius: unset;
 }
 
-body #fullscreen #playground #mob .ant.player .rangea {
+body #fullscreen #playground #mob .moob.player .rangea {
   background-color: rgba(255, 255, 255, 0.103);
 }
 
-body #fullscreen #playground #mob .ant.player.overa .rangea {
+body #fullscreen #playground #mob .moob.player.overa .rangea {
   outline: 2px dotted rgba(255, 0, 0, 0.1);
 }
 
@@ -101,7 +101,7 @@ body #fullscreen #playground #mob.outlined .rangea {
   outline: 3px dotted rgba(255, 255, 255, 0.2);
 }
 
-body #fullscreen #playground #mob .ant .mobinfo {
+body #fullscreen #playground #mob .moob .mobinfo {
   position: absolute;
   top: -100%;
   left: -100%;
@@ -123,16 +123,17 @@ body #fullscreen #playground #mob .ant .mobinfo {
           align-items: flex-start;
 }
 
-body #fullscreen #playground #mob .ant .mobinfo span.xpspan {
+body #fullscreen #playground #mob .moob .mobinfo span.xpspan {
   position: absolute;
   top: 0;
   right: 0;
   font-size: 0.7rem;
   color: rgba(21, 255, 0, 0.562);
   max-width: 1.4rem;
+  height: 100%;
 }
 
-body #fullscreen #playground #mob .ant .mobinfo span.posspan {
+body #fullscreen #playground #mob .moob .mobinfo span.posspan {
   display: none;
   position: absolute;
   bottom: 0;
@@ -140,7 +141,7 @@ body #fullscreen #playground #mob .ant .mobinfo span.posspan {
   text-align: left;
 }
 
-body #fullscreen #playground #mob .ant .mobinfo span.namespan {
+body #fullscreen #playground #mob .moob .mobinfo span.namespan {
   display: initial;
   position: absolute;
   bottom: 0;
@@ -148,7 +149,7 @@ body #fullscreen #playground #mob .ant .mobinfo span.namespan {
   text-align: center;
 }
 
-body #fullscreen #playground #mob .ant:hover .mobinfo {
+body #fullscreen #playground #mob .moob:hover .mobinfo {
   position: absolute;
   content: "!";
   position: absolute;
@@ -161,11 +162,11 @@ body #fullscreen #playground #mob .ant:hover .mobinfo {
   z-index: +1;
 }
 
-body #fullscreen #playground #mob .ant:hover .mobinfo span {
+body #fullscreen #playground #mob .moob:hover .mobinfo span {
   display: initial;
 }
 
-body #fullscreen #playground #mob .ant:hover .mobinfo span.namespan {
+body #fullscreen #playground #mob .moob:hover .mobinfo span.namespan {
   text-align: right;
 }
 
@@ -448,8 +449,8 @@ body #p0right,
 body #p1left,
 body #p1right {
   display: none;
-  width: calc(100vw / 10);
-  height: calc(100vw / 10);
+  width: calc(100vw / 5);
+  height: calc(100vw / 5);
   background: rgba(255, 255, 255, 0.05);
   position: absolute;
   bottom: calc(100vw / 20);

@@ -45,7 +45,7 @@ class Ants {
 			velocity: datas.velocity ?? 2,
 			delay: [0, (datas.delay ?? 20)],
 			aSize: datas.aSize ?? 3,
-			visual: this.get_visual((type === 'ia' ? 'ladybug' : type)),
+			visual: this.get_visual(type),
 			direction: datas.direction ?? aleaEntreBornes(0, 359),
 			// "color": 'rgb(' + aleaEntreBornes(50, 255) + ', ' + aleaEntreBornes(50, 255) + ', ' + aleaEntreBornes(50, 255) + ')',
 			colors: this.get_colors(),
@@ -57,7 +57,7 @@ class Ants {
 			],
 			overlap: [false, false], // [0=self,1=rangeA],
 			lastenemyid: 0,
-			classname: 'ant ' + (!(datas.type === "ia") ? 'player ' : ''),
+			classname: 'moob ' + type,
 			agility: 45,
 			kills: 0,
 			food: 0,
@@ -96,8 +96,9 @@ class Ants {
 		// newMobVisual.appendChild(antRangeA)
 		// Ant Div
 		let newMobDiv = document.createElement('div');
-		newMobDiv.id = character.type + "-" + character.num
+		newMobDiv.id = "item-" + character.num
 		newMobDiv.setAttribute("data-name", character.name)
+		newMobDiv.setAttribute("data-immat", character.immat)
 		newMobDiv.style.top = character.y + px
 		newMobDiv.style.left = (character.x) + px
 		newMobDiv.style.maxWidth = character.size + px
@@ -138,6 +139,7 @@ class Ants {
 	}
 	get_visual(type) {
 		let visual = {
+			ia: ['ladybug_black.svg', 'ladybug_white.svg'],
 			ladybug: ['ladybug_black.svg', 'ladybug_white.svg'],
 			ant: ['ladybug_black.svg', 'ladybug_white.svg'],
 			player: ['ant_black.png', 'ant_white.png'],

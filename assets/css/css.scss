@@ -47,7 +47,7 @@ body {
 				height: 100%;
 				width: 100%;
 				overflow: hidden;
-				.ant {
+				.moob {
 					position: absolute;
 					// background: rgba(255, 255, 255, 0.89);
 					border-radius: 5px;
@@ -100,7 +100,7 @@ body {
 				}
 			}
 			#mob {
-				.ant {
+				.moob {
 					.mobinfo {
 						position: absolute;
 						top: -100%;
@@ -123,6 +123,7 @@ body {
 							font-size: 0.7rem;
 							color: rgba(21, 255, 0, 0.562);
 							max-width: 1.4rem;
+							height: 100%;
 							// background-color: khaki;
 						}
 						span.posspan {
@@ -370,8 +371,8 @@ body {
 	#p1left,
 	#p1right {
 		display: none;
-		width: calc(100vw / 10);
-		height: calc(100vw / 10);
+		width: calc(100vw / 5);
+		height: calc(100vw / 5);
 		background: rgba(255, 255, 255, 0.05);
 		position: absolute;
 		bottom: calc(100vw / 20);

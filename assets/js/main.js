@@ -47,6 +47,7 @@ function getAllDivObjects() {
 	worldtype = document.getElementById('worldtype')
 	isoutlined = document.getElementById('isoutlined')
 	outlined = document.getElementById('outlined')
+	//players
 	splashplayer0 = document.getElementById('splashplayer0')
 	p0left = document.getElementById('p0left')
 	p0right = document.getElementById('p0right')
@@ -114,7 +115,7 @@ function WindowisLoaded() {
 		if (eve.target.id === "mob") {
 			let yyy = eve.clientY - ((window.innerHeight - playGroundSize.h) / 2)
 			let xxx = eve.clientX - ((window.innerWidth - playGroundSize.w) / 2)
-			PlayGround.Ants.addAnt({ name: 'amy', pos: [xxx, yyy] })
+			PlayGround.Ants.addAnt({ pos: [xxx, yyy] })
 		}
 	})
 

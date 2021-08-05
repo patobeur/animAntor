@@ -112,7 +112,6 @@ class AntAnimator {
 					name: "player-" + playeridx,
 					pos: [parseInt((playGroundSize.w) / 2), parseInt((playGroundSize.h) / 2)],
 					type: 'player', // this not a real mob with ia
-					//divid: 'ant-' + this.Ants.immat, // not used
 					playerid: [playeridx],
 					direction: 0,
 					compass: [0, 0, 0, 0],
@@ -154,7 +153,11 @@ class AntAnimator {
 		this.resetOverlapsAndimmune1Round()
 		let selectNewDirection = (actualdir, agility) => {
 			// to do
-			let nd = actualdir += aleaEntreBornes(-agility, agility)
+			// let nd = actualdir += aleaEntreBornes(-agility, agility)
+			// nd = nd > 360 ? 0 : nd
+			// nd = nd < 0 ? 360 : nd
+			// to do
+			let nd = actualdir += (aleaEntreBornes(-1, 1) * (360 / 8))
 			nd = nd > 360 ? 0 : nd
 			nd = nd < 0 ? 360 : nd
 			return nd
@@ -256,8 +259,8 @@ class AntAnimator {
 		// if (this.antsToRecenter.length > 0) {
 		// 	this.antsToRecenter.forEach(num => {
 		// 		this.Ants.allAnts[num].pos = [playGroundSize.w / 2, playGroundSize.h / 2]
-		// 		// document.getElementById("ant-" + this.Ants.allAnts[num].num).style.top = [playGroundSize.w / 2, playGroundSize.h / 2] + px
-		// 		// document.getElementById("ant-" + this.Ants.allAnts[num].num).style.left = this.Ants.allAnts[this.Ants.allAnts.length - 1].x + px
+		// 		// document.getElementById("item-" + this.Ants.allAnts[num].num).style.top = [playGroundSize.w / 2, playGroundSize.h / 2] + px
+		// 		// document.getElementById("item-" + this.Ants.allAnts[num].num).style.left = this.Ants.allAnts[this.Ants.allAnts.length - 1].x + px
 		// 	})
 		// 	this.antsToRecenter = []
 		// }
@@ -324,7 +327,7 @@ class AntAnimator {
 			this.antsToDelete.reverse()
 		}
 		this.antsToDelete.forEach(immat => {
-			document.getElementById(this.Ants.allAnts[immat].type + "-" + this.Ants.allAnts[immat].num).remove()
+			document.getElementById('item' + "-" + this.Ants.allAnts[immat].num).remove()
 			if (!this.Ants.allAnts[immat].ia[0]) {
 
 				// delete player
@@ -343,7 +346,7 @@ class AntAnimator {
 	// mobs traitements
 	resizeMobs(type, mob) {
 		mob.size = mob.size < 50 ? mob.size * 1.02 : 50
-		let currentMob = document.getElementById(mob.type + "-" + mob.num);
+		let currentMob = document.getElementById("item-" + mob.num);
 		currentMob.style.width = (mob.size) + px
 		currentMob.style.height = (mob.size) + px
 		currentMob.style.maxWidth = (mob.size) + px
@@ -369,7 +372,7 @@ class AntAnimator {
 
 	redrawAllMobs = () => {
 		this.Ants.allAnts.forEach(ant => {
-			let currentMob = document.getElementById(ant.type + "-" + ant.num);
+			let currentMob = document.getElementById("item-" + ant.num);
 
 			let elem = currentMob.querySelector(".mobinfo");
 			elem.parentNode.removeChild(elem)
@@ -385,7 +388,7 @@ class AntAnimator {
 			let classSelf = (ant.overlap[0] === true) ? " overself" : ""
 			let classRangeA = (ant.overlap[1] === true) ? " overa" : ""
 			let classDead = (ant.state[3] === "dead") ? " dead" : ""
-			currentMob.className = 'ant ' + ((!ant.ia) ? ' player ' : '') + ant.state[0] + classSelf + classRangeA + classDead;
+			currentMob.className = 'moob ' + ant.type + " " + ant.state[0] + classSelf + classRangeA + classDead;
 			// refresh info
 			let mobinfo = document.createElement('div')
 			mobinfo.className = "mobinfo"
