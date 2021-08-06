@@ -3,6 +3,7 @@ class Ants {
 	constructor() {
 		// local Datas
 		this.maxAnts = 60;
+		this.deadAnts = 0;
 		this.mobdivContent = "";
 		this.allAnts = [];
 		this.allTobs = [];
@@ -197,10 +198,10 @@ class Ants {
 		// mobDead.textContent = nbDeadAnts
 		// mobRespawn.textContent = nbRespawnAnts
 		// remainingmobs.textContent = nbRespawnAnts
-		remainingmobs.textContent = this.allAnts.length + "/" + this.maxAnts
+		remainingmobs.textContent = (this.maxAnts - this.deadAnts)
 		let max = this.allAnts.length > 10 ? 10 : this.allAnts.length
 		remainingmobs.style.width = ((max) * 40) + px
-		remainingmobs.style.height = ((max) * 40) + px
+		remainingmobs.style.height = ((max) * 20) + px
 
 	}
 	get_visual(type) {

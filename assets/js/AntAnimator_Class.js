@@ -356,6 +356,8 @@ class AntAnimator {
 				console.log('Deletation of mob #' + immat + '. By by ' + this.Ants.allAnts[immat].name + ' !!')
 			}
 			this.Ants.allAnts.splice(immat, 1)
+			this.antsDeleted++
+			this.Ants.deadAnts++
 
 			if (respawn) {
 				if (this.Ants.allAnts.length < this.Ants.maxAnts) {
